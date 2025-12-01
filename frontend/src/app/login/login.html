@@ -1,0 +1,38 @@
+<div class="d-flex  bg-light align-items-center justify-content-center vh-100 ">
+   <div class="card shadow-lg p-4" style="width: 380px; border-radius: 15px;">
+      <h2 class="text-primary mb-3 text-center">Login Page</h2>
+      <div>
+         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="mb-3 align-items-center">
+               <label for="email" class="form-label fw-bold">E-mail</label>
+               <input type="email" id="email" class="form-control" formControlName="email"
+                  placeholder="Enter your Username">
+               @if (loginForm.get("email")?.invalid && loginForm.get("email")?.touched) {
+               @if (loginForm.get("email")?.errors?.['required']) {
+               <div class="text-danger">Email is required.</div>
+               }
+               @else if (loginForm.get("email")?.errors?.["email"]) {
+               <div class="text-danger ">Enter a valid email.</div>
+               }
+               }
+            </div>
+            <div class="mb-3 align-items-center">
+               <label for="password" class="form-label fw-bold">Password</label>
+               <input type="password" id="password" class="form-control" formControlName="password"
+                  placeholder="Enter your password">
+               @if (loginForm.get("password")?.invalid && loginForm.get("password")?.touched) {
+               @if (loginForm.get("password")?.errors?.['required']) {
+               <div class="text-danger">Password is required.</div>
+               }
+               @else if (loginForm.get("password")?.errors?.["minlength"]) {
+               <div class="text-danger"> Password is incorrect</div>
+               }
+               }
+            </div>
+            <div>
+               <button type="submit" class="btn btn-primary w-100">Login</button>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>

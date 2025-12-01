@@ -1,0 +1,156 @@
+.search-container {
+  position: relative;
+  display: inline-block;
+  /* Or block, depending on layout */
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Other styling for the icon */
+}
+
+.product-list-section {
+  background-color: #f8f9fa;
+}
+
+.category-card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-10px);
+}
+
+.category-card .card {
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.category-card:hover .card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.category-icon-wrapper {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.category-icon {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-icon i {
+  font-size: 2.5rem;
+  color: #0d7377;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.input-group .form-control {
+  border-radius: 20px 0 0 20px;
+}
+
+.input-group .btn {
+  border-radius: 0 20px 20px 0;
+}
+
+/* --- NAVBAR FIXES --- */
+.search-container {
+  flex-grow: 1;
+}
+
+/* On small screens, shrink the search bar and stack nicely */
+@media (max-width: 576px) {
+  .search-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .navbar .btn,
+  .navbar .dropdown-toggle {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .navbar-brand {
+    font-size: 18px;
+  }
+}
+
+.carousel-inner img {
+  height: 180px;
+}
+
+@media (min-width: 768px) {
+  .carousel-inner img {
+    height: 250px;
+  }
+}
+
+.category-card {
+  cursor: pointer;
+}
+
+.category-card .card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 576px) {
+  .category-card {
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .offcanvas {
+    width: 90% !important;
+  }
+
+  .card-body {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
+/* --- FOOTER --- */
+footer h3 {
+  font-size: 20px;
+}
+
+@media (max-width: 576px) {
+  footer .row > div {
+    text-align: center;
+  }
+
+  footer .d-flex.gap-3 {
+    justify-content: center;
+  }
+}
+
+

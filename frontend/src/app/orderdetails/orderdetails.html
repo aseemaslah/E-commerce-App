@@ -1,0 +1,102 @@
+<header class="shadow-sm sticky-top">
+  <nav class="navbar navbar-dark" style="background-color: #0d6efd;">
+    <div class="container-fluid d-flex align-items-center justify-content-between py-2">
+      <a class="navbar-brand fw-bold text-white" href="#">
+        E-Commerce <i class="bi bi-discord"></i>
+      </a>
+      <div class="dropdown me-3">
+        <a class="dropdown-toggle text-white fw-bold text-decoration-none" routerLink="#" role="button"
+          data-bs-toggle="dropdown">
+          More
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+          <li><a class="dropdown-item" href="#">Help</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="container my-5">
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="card shadow-sm p-4 bg-light">
+        <h3 class="fw-bold mb-4 text-primary">Order Summary</h3>
+        @for ( carts of cart; track carts.id){
+        <div class="d-flex align-items-center border-bottom pb-3 mb-3">
+          <img src="{{carts.image}}" alt="product" class="img-fluid rounded me-3 border"
+            style="width: 50px; height: 50px;">
+          <div class="flex-grow-1">
+            <h5 class="mb-1">{{carts.name}}</h5>
+            <small class="text-muted">{{carts.quantity}}</small>
+          </div>
+          <h6 class="text-primary fw-semibold"></h6>
+        </div>}
+        <div class="d-flex justify-content-between mt-3 border-top pt-3">
+          <h5>Total Amount:</h5>
+          <h5 class="fw-bold text-primary">{{calculateTotal() | currency : "INR"}}</h5>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary " routerLink="/home">Back To Shopping</button>
+        </div>
+      </div>
+    </div>
+          <div class="col-lg-5">
+      @for (bills of billing; track bills.id) {
+      <div class="card shadow-sm p-4 bg-light mb-4"  style="position: sticky; top: 100px;">
+        <h4 class="fw-bold text-primary mb-3">Shipping Details</h4>
+        <p class="mb-1"><strong>Name:</strong>{{bills.name}}</p>
+        <p class="mb-1"><strong>locality:</strong>{{bills.locality}}</p>
+        <p class="mb-1"><strong>Landmark:</strong>{{bills.landamark}}</p>
+        <p class="mb-1"><strong>Pincode:</strong>{{bills.pincode}}</p>
+        <p class="mb-1"><strong>Phone:</strong>{{bills.phone}}</p>
+      </div>}
+    </div>
+  </div>
+</div>
+<footer class="py-5 bg-light  border-top">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-3 col-md-6">
+        <h3 class=" fw-bold text-primary ">E-Commerce <i class="bi bi-discord"></i></h3>
+        <div class="d-flex gap-3 mt-3">
+          <a href="#" class="text-dark fs-5"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-dark fs-5"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-dark fs-5"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6">
+        <h6 class="fw-bold mb-3">COMPANY</h6>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-dark d-block mb-2">About Us</a></li>
+          <li><a href="#" class="text-dark d-block mb-2">Contact Us</a></li>
+          <li><a href="#" class="text-dark d-block mb-2">Developer Information</a></li>
+          <li><a href="#" class="text-dark d-block mb-2">Privacy Policy</a></li>
+          <li><a href="#" class="text-dark d-block mb-2">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-md-6">
+        <h6 class="fw-bold mb-3">HELP </h6>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-dark d-block mb-2">My Account</a></li>
+          <li><a href="#" class="text-dark d-block mb-2">My Orders</a></li>
+          <li><a href="#" class="text-dark d-block mb-2">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h6 class="fw-bold mb-3">INFORMATION</h6>
+
+        <p class="mb-2">
+          <i class="bi bi-telephone me-2"></i> Call Us: 9037432518
+        </p>
+        <p class="mb-2">
+          <i class="bi bi-geo-alt me-2"></i> Address: Calicut
+        </p>
+        <p class="mb-3">
+          <i class="bi bi-envelope me-2"></i> ecommerce@gmail.com
+        </p>
+      </div>
+
+    </div>
+  </div>
+</footer>
