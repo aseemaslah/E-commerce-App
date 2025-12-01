@@ -107,4 +107,24 @@ export class Categorypage implements OnInit {
         error: (err) => console.error('Search error:', err),
       });
   }
+
+   increaseQty(item: any) {
+    const newQty = item.quantity + 1;
+
+    this.cartpageService.updateQuantity(item.productId, newQty)
+      .subscribe(() => {
+        item.quantity = newQty;
+      });
+  }
+
+  decreaseQty(item: any) {
+    if (item.quantity > 1) {
+      const newQty = item.quantity - 1;
+
+      this.cartpageService.updateQuantity(item.productId, newQty)
+        .subscribe(() => {
+          item.quantity = newQty;
+        });
+    }
+  }
 }

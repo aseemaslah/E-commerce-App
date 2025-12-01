@@ -65,6 +65,26 @@ export class Cartpage implements OnInit {
     return this.cart.reduce((total, carts) => total + (carts.price * carts.quantity), 0);
   }
 
+     increaseQty(item: any) {
+    const newQty = item.quantity + 1;
+
+    this.cartpageService.updateQuantity(item.productId, newQty)
+      .subscribe(() => {
+        item.quantity = newQty;
+      });
+  }
+
+  decreaseQty(item: any) {
+    if (item.quantity > 1) {
+      const newQty = item.quantity - 1;
+
+      this.cartpageService.updateQuantity(item.productId, newQty)
+        .subscribe(() => {
+          item.quantity = newQty;
+        });
+    }
+  }
+
 
 
 }
