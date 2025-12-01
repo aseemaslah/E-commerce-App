@@ -92,35 +92,28 @@ export class Home implements OnInit {
     });
   }
 
-    addToCart(product: any): void {
-    this.cartpageService.addToCart(product).subscribe({
-      next: (res) => {
-        console.log('Product added to cart', res);
-      },
-      error: (err) => console.error('Failed to add product to cart', err),
-      complete: () => console.log('Add to cart request completed')
-    });
-    alert("Product Added Succesfully")
+  
+ increaseQty(item: any) {
+    const newQty = item.quantity + 1;
+
+    this.cartpageService.updateQuantity(item.productId, newQty)
+      .subscribe(() => {
+        item.quantity = newQty;
+      });
   }
 
-    fetchProducts(category : string): void {
-    this.categoryPageService.fetchProducts(category).subscribe({
-      next: (res: any) => {
-        this.products = res.products.map((p: any) => ({
-          productId: p.id,
-          name: p.title,
-          price: p.price,
-          image: p.thumbnail,
-          discount: p.discountPercentage,
-          brand: p.brand,
-          rating: p.rating,
-        }));
-        this.cdr.markForCheck();
-      },
-      error: (err) => console.error('Failed to load products', err),
-      complete: () => console.log('Products loaded successfully')
-    });
+  decreaseQty(item: any) {
+    if (item.quantity > 1) {
+      const newQty = item.quantity - 1;
+
+      this.cartpageService.updateQuantity(item.productId, newQty)
+        .subscribe(() => {
+          item.quantity = newQty;
+        });
+    }
   }
+  
+
 
 }
 

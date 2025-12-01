@@ -63,14 +63,18 @@ const deleteCart = async (req, res) => {
 
 const updateCart = async (req, res) => {
     try {
-        const userId = req.params.userId;
         const { productId, quantity } = req.body;
 
-        const cartItem = await Cart.findOne({ userId, productId });
+        if (quantity < 1) {
+            return res.status(400).json({ message: 'Quantity must be at least 1' });
+        }
+
+        const cartItem = await Cart.findOne({ userId: "user123", productId });
 
         if (!cartItem) {
             return res.status(404).json({ message: 'Item not found in cart' });
-        }   
+        }
+
         cartItem.quantity = quantity;
         await cartItem.save();
 
@@ -79,7 +83,6 @@ const updateCart = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-
 }
 
 module.exports = { addToCart, getCart , deleteCart , updateCart };
