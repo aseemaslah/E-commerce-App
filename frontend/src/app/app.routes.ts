@@ -10,6 +10,8 @@ import { Contactus } from './contactus/contactus';
 import { Developerinformation } from './developerinformation/developerinformation';
 import { Privacypolicy } from './privacypolicy/privacypolicy';
 import { Termsandcondtions } from './termsandcondtions/termsandcondtions';
+import { MyAccount } from './my-account/my-account';
+import { MyOrder } from './my-order/my-order';
 
 export const routes: Routes = [
 {
@@ -57,6 +59,14 @@ export const routes: Routes = [
 {
     path: "terms",
     component: Termsandcondtions
+},
+{
+    path: "myaccount",
+    component: MyAccount
+},
+{
+    path: "myorder",
+    component: MyOrder
 }
     
 ];

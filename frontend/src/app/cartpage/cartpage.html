@@ -88,7 +88,7 @@
                     <img src="{{carts.image}}" class="img-thumbnail me-3" style="height: 90px; width: 90px;">
                     <div>
                         <h5 class="mb-1">{{carts.name | slice:0:30}}</h5>
-                        <p class="text-muted mb-0">{{carts.price * (carts.discount / 100)}} Rs</p>
+                        <p class="text-primary mb-0 fw-semibold">{{carts.price * (carts.discount / 100) | currency}} / Nos</p>
                     </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-center" style="width: 160px;">
@@ -100,12 +100,12 @@
                         <i class="bi bi-plus-circle text-primary"></i>
                     </button>
                 </div>
-                <div class="text-center fw-bold" style="width: 160px;">
-                    Total: {{ (carts.price * carts.quantity) }} Rs
+                <div class="text-center fw-bold text-primary" style="width: 160px;">
+                    Total: {{ (carts.price * carts.quantity) | currency  }}
                 </div>
-                <div class="d-flex flex-column gap-2" style="width: 140px;">
-                    <button class="btn btn-sm btn-outline-danger w-100" (click)="deleteCart(carts.productId)">
-                        <i class="bi bi-trash me-1"></i> Remove
+                <div class="d-flex flex-column gap-2" >
+                    <button class="btn btn-sm btn-outline-dark " (click)="deleteCart(carts.productId)">
+                        <i class="bi bi-trash "></i> 
                     </button>
                 </div>
             </div>
@@ -119,40 +119,39 @@
         <div class="d-flex justify-content-end mt-4 ">
             <h5 class="fw-bold text-primary">Total: {{ calculateTotal() | currency}}</h5>
         </div>
-        <div class="col-12 d-flex justify-content-end mt-4">
-            <button type="submit" class="btn btn-primary px-4 me-2 shadow-sm" routerLink="/purchasepage">Buy
-                Now</button>
-            <button type="button" class="btn btn-outline-danger px-4" routerLink="/home">Back</button>
+        <div class="col-12 d-flex justify-content-end mt-4" >
+            <button type="submit" class="btn btn-primary px-4 me-2 shadow-sm" routerLink="/purchasepage">Make It Yours</button>
+            <button type="button" class="btn btn-outline-danger px-4" routerLink="/home">Continue Shopping</button>
         </div>
     </div>
 </section>
-<footer class="py-5 bg-light border-top">
+<footer class="py-5 bg-light  border-top">
   <div class="container">
     <div class="row gy-4">
       <div class="col-lg-3 col-md-6">
-       <h3 class=" fw-bold text-primary ">E-Commerce <i class="bi bi-discord"></i></h3>
+        <h3 class=" fw-bold text-primary ">E-Commerce <i class="bi bi-discord"></i></h3>
         <div class="d-flex gap-3 mt-3">
-          <a href="#" class="text-dark fs-5"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-dark fs-5"><i class="bi bi-twitter"></i></a>
-          <a href="#" class="text-dark fs-5"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.facebook.com/" class="text-dark fs-5"><i class="bi bi-facebook"></i></a>
+          <a href="https://x.com/" class="text-dark fs-5"><i class="bi bi-twitter-x"></i></a>
+          <a href="https://www.instagram.com/" class="text-dark fs-5"><i class="bi bi-instagram"></i></a>
         </div>
       </div>
       <div class="col-lg-2 col-md-6">
         <h6 class="fw-bold mb-3">COMPANY</h6>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-dark d-block mb-2">About Us</a></li>
-          <li><a href="#" class="text-dark d-block mb-2">Contact Us</a></li>
-          <li><a href="#" class="text-dark d-block mb-2">Developer Information</a></li>
-          <li><a href="#" class="text-dark d-block mb-2">Privacy Policy</a></li>
-          <li><a href="#" class="text-dark d-block mb-2">Terms & Conditions</a></li>
+          <li><a class="text-dark d-block mb-2" routerLink="/about">About Us</a></li>
+          <li><a class="text-dark d-block mb-2" routerLink="/contact">Contact Us</a></li>
+          <li><a class="text-dark d-block mb-2" routerLink="/developer">Developer Information</a></li>
+          <li><a class="text-dark d-block mb-2" routerLink="/privacypolicy">Privacy Policy</a></li>
+          <li><a class="text-dark d-block mb-2" routerLink="/terms">Terms & Conditions</a></li>
         </ul>
       </div>
       <div class="col-lg-2 col-md-6">
         <h6 class="fw-bold mb-3">HELP </h6>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-dark d-block mb-2">My Account</a></li>
-          <li><a href="#" class="text-dark d-block mb-2">My Orders</a></li>
-          <li><a href="#" class="text-dark d-block mb-2">Contact Us</a></li>
+          <li><a href="#" class="text-dark d-block mb-2" routerLink="/myaccount">My Account</a></li>
+          <li><a href="#" class="text-dark d-block mb-2" routerLink="/myorder">My Orders</a></li>
+          
         </ul>
       </div>
       <div class="col-lg-3 col-md-6">

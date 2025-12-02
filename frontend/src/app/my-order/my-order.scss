@@ -1,0 +1,73 @@
+body {
+      background: linear-gradient(135deg, #f5f8ff, #ffffff);
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    .page-title {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .orders-card {
+      border-radius: 20px;
+      background: white;
+    }
+
+    .order-item {
+      border-radius: 16px;
+      padding: 18px;
+      background: #fff;
+      border: 1px solid #eef1ff;
+      transition: 0.3s ease;
+    }
+
+    .order-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(13, 110, 253, 0.08);
+    }
+
+    .status {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .status.delivered {
+      background: #198754;
+      color: #fff;
+    }
+
+    .status.processing {
+      background: #ffc107;
+      color: #212529;
+    }
+
+    .status.cancelled {
+      background: #dc3545;
+      color: #fff;
+    }
+
+    .btn-outline-primary {
+      border-radius: 30px;
+      padding: 7px 20px;
+      font-weight: 600;
+    }
+
+    .order-img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid #e6ebff;
+    }
+
+    footer {
+      background: #f8f9fa;
+    }
+
+    @media(max-width:768px) {
+      .order-item {
+        text-align: center;
+      }
+    }

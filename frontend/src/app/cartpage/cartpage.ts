@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { CartpageService } from '../service/cartpage-service';
-import { CurrencyPipe, SlicePipe } from '@angular/common';
+import { CurrencyPipe, DecimalPipe, SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-cartpage',
