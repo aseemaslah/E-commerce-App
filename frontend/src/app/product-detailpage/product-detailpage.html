@@ -125,86 +125,117 @@
     </div>
   </nav>
 </header>
-
-<section class="py-5 bg-light">
+<!-- Product Details -->
+<section class="py-5">
   <div class="container">
-    <h2 class="text-start mb-5 fw-bold text-primary border-bottom">{{category | uppercase}} SECTION</h2>
-    <div class="row g-4 justify-content-start">
-      @for (p of products; track p.id) {
-      <div class="col-6 col-md-4 col-lg-3 category-card">
-        <div class="card border-0 shadow-sm h-100 text-center " (click)="goToProduct(p)">
-          <div class="card-body border" >
-            <div
-              class=" bg-white bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3"
-              style="width:250px; height:250px;">
-              <img [src]="p.image" alt="{{ p.title }}" class="img-fluid" style="max-height:200px; max-width:200px;" />
+
+    @if (product) {
+      <div class="product-wrapper shadow-sm">
+
+        <div class="row g-4">
+          <!-- Main Image -->
+          <div class="col-lg-6 text-center">
+            <img [src]="product.thumbnail" class="product-img mb-3 img-fluid">
+
+            <!-- Thumbnails -->
+            @if (product.images?.length > 0) {
+              <div class="thumbs d-flex gap-2 justify-content-center">
+                @for (img of product.images; track img) {
+                  <img [src]="img"
+                       style="width:80px; height:80px; object-fit:cover; border-radius:6px;">
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Product Info -->
+          <div class="col-lg-6">
+            <h2 class="page-title mb-2">{{ product.title }}</h2>
+
+            <!-- Rating -->
+            <div class="mb-3">
+              <i class="bi bi-star-fill text-warning"></i>
+              <span class="text-muted ms-2">({{ product.rating }})</span>
             </div>
-            <h5 class="fw-semibold text-dark text-capitalize">{{ p.name }}</h5>
-            <span class="fw-semiold text-dark">{{p.brand}}</span>
+
+            <!-- Price -->
+            <div class="mb-3">
+              <span class="price">₹ {{ product.price }}</span>
+              @if (product.discountPercentage) {
+                <span class="old-price ms-2">
+                  ₹ {{ product.price + (product.price * product.discountPercentage / 100) | number:'1.0-0' }}
+                </span>
+              }
+            </div>
+
+            <!-- Brand -->
+            <span class="badge bg-success mb-3">{{ product.brand }}</span>
+
+            <!-- Description -->
+            <p class="mb-4 text-muted">{{ product.description }}</p>
+
+            <!-- Actions -->
+            <div class="d-flex gap-3 flex-wrap mb-4">
+              <button class="btn btn-primary" (click)="addToCart(product)">
+                <i class="bi bi-cart-plus me-1"></i> Add to Cart
+              </button>
+              <!-- <button class="btn btn-outline-secondary">
+                <i class="bi bi-heart me-1"></i> Wishlist
+              </button> -->
+            </div>
+
+            <!-- Features -->
+            <div class="row g-3 mt-4">
+              <div class="col-6 col-md-4">
+                <div class="feature text-center">
+                  <i class="bi bi-box fs-4 text-dark fw-bold"></i>
+                  <p class="mb-0 mt-1">{{ product.category }}</p>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="feature text-center">
+                  <i class="bi bi-percent fs-4 text-primary fw-bold"></i>
+                  <p class="mb-0 mt-1 fw-semibold">{{ product.discountPercentage }}% off</p>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="feature text-center">
+                  <i class="bi bi-star-fill fs-4 text-warning fw-bold"></i>
+                  <p class="mb-0 mt-1">{{ product.rating }} Rating</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center gap-3">
-            <span class="fw-semiold text-dark"><del>{{ p.price | currency : "USD"}}</del></span>
-            <h5 class="fw-bold text-primary">{{p.price *(p.discount / 100) | currency: "USD"}}</h5>
-          </div>
-          <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center gap-2">
-            <span class="fw-semiold text-warning">{{p.rating}}</span>
-            <i class="bi bi-star-fill text-warning"></i>
-          </div>
-          <button type="button" class="btn btn-sm btn-primary " (click)="addToCart(p)">
-            <i class="bi bi-cart-plus-fill"></i> Add to Cart
-          </button>
         </div>
+
+        <!-- Description + Reviews -->
+        <div class="row mt-5 g-5">
+          <div class="col-md-6">
+            <h5 class="fw-bold mb-3">Product Description</h5>
+            <p class="text-muted">{{ product.description }}</p>
+          </div>
+          <div class="col-md-6">
+            <h5 class="fw-bold mb-3">Customer Reviews</h5>
+            @if (product.reviews?.length > 0) {
+              @for (review of product.reviews; track review) {
+                <div class="review-box mb-3">
+                  <strong>{{ review.user }}</strong>
+                  <span class="text-warning small">{{ review.rating }}★</span>
+                  <p class="small mb-0">{{ review.comment }}</p>
+                </div>
+              }
+            } @else {
+              <p class="text-muted">No reviews yet.</p>
+            }
+          </div>
+        </div>
+
       </div>
-      }
-      @empty {
-      <div class="spinner-border text-primary"></div>
-      }
-    </div>
+    } 
+
   </div>
 </section>
-<footer class="py-5 bg-light  border-top">
-  <div class="container">
-    <div class="row gy-4">
-      <div class="col-lg-3 col-md-6">
-        <h3 class=" fw-bold text-primary ">E-Commerce <i class="bi bi-discord"></i></h3>
-        <div class="d-flex gap-3 mt-3">
-          <a href="https://www.facebook.com/" class="text-dark fs-5"><i class="bi bi-facebook"></i></a>
-          <a href="https://x.com/" class="text-dark fs-5"><i class="bi bi-twitter-x"></i></a>
-          <a href="https://www.instagram.com/" class="text-dark fs-5"><i class="bi bi-instagram"></i></a>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-6">
-        <h6 class="fw-bold mb-3">COMPANY</h6>
-        <ul class="list-unstyled">
-          <li><a class="text-dark d-block mb-2" routerLink="/about">About Us</a></li>
-          <li><a class="text-dark d-block mb-2" routerLink="/contact">Contact Us</a></li>
-          <li><a class="text-dark d-block mb-2" routerLink="/developer">Developer Information</a></li>
-          <li><a class="text-dark d-block mb-2" routerLink="/privacypolicy">Privacy Policy</a></li>
-          <li><a class="text-dark d-block mb-2" routerLink="/terms">Terms & Conditions</a></li>
-        </ul>
-      </div>
-      <div class="col-lg-2 col-md-6">
-        <h6 class="fw-bold mb-3">HELP </h6>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-dark d-block mb-2" routerLink="/myaccount">My Account</a></li>
-          <li><a href="#" class="text-dark d-block mb-2" routerLink="/myorder">My Orders</a></li>
-          
-        </ul>
-      </div>
-      <div class="col-lg-3 col-md-6">
-        <h6 class="fw-bold mb-3">INFORMATION</h6>
 
-        <p class="mb-2">
-          <i class="bi bi-telephone me-2"></i> Call Us: 9037432518
-        </p>
-        <p class="mb-2">
-          <i class="bi bi-geo-alt me-2"></i> Address: Calicut
-        </p>
-        <p class="mb-3">
-          <i class="bi bi-envelope me-2"></i> ecommerce@gmail.com
-        </p>
-      </div>
-
-    </div>
-  </div>
+<footer class="py-4 border-top text-center">
+  <small>© 2025 Your E-Commerce. All rights reserved.</small>
 </footer>

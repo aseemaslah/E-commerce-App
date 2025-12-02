@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, RouterLink } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { CategorypageService } from '../service/categorypage-service';
 import { CartpageService } from '../service/cartpage-service';
 import { CurrencyPipe, SlicePipe, UpperCasePipe } from '@angular/common';
@@ -24,6 +24,7 @@ export class Categorypage implements OnInit {
   private categoryService = inject(CategorypageService);
   private cdr = inject(ChangeDetectorRef);
   private cartpageService = inject(CartpageService);
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.loginForm = this.forms.group({
@@ -76,19 +77,17 @@ export class Categorypage implements OnInit {
     this.getCart();
     alert("Product Added Succesfully")
   }
-  getCart(): void {
-
-    const userId = "user123";
-    this.cartpageService.getCart(userId).subscribe({
-      next: (res: any) => {
-        this.cart = res.cartItems;
-        console.log(this.cart);
-        this.cdr.markForCheck();
-        this.getCart();
-      },
-      error: (err) => console.error('Failed to load cart', err)
-    });
-  }
+getCart(): void {
+  const userId = "user123";
+  this.cartpageService.getCart(userId).subscribe({
+    next: (res: any) => {
+      this.cart = res.cartItems;
+      console.log(this.cart);
+      this.cdr.markForCheck(); 
+    },
+    error: (err) => console.error('Failed to load cart', err)
+  });
+}
   calculateTotal(): number {
     return this.cart.reduce((total, carts) => total + ( (carts.price * carts.quantity) * (carts.discount/100)), 0);
   }
@@ -130,5 +129,9 @@ export class Categorypage implements OnInit {
           this.getCart();
         });
     }
+  }
+    goToProduct(product: any): void {
+    this.router.navigate(['/product', product.productId]);
+    console.log ("success")
   }
 }

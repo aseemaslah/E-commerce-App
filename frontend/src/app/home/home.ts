@@ -69,19 +69,18 @@ export class Home implements OnInit {
   goToCategory(category: any): void {
     this.router.navigate(['/categorypage', category.name]);
   }
-  getCart(): void {
+getCart(): void {
+  const userId = "user123";
+  this.cartpageService.getCart(userId).subscribe({
+    next: (res: any) => {
+      this.cart = res.cartItems;
+      console.log(this.cart);
+      this.cdr.markForCheck();  // mark for Angular to update view
+    },
+    error: (err) => console.error('Failed to load cart', err)
+  });
+}
 
-    const userId = "user123";
-    this.cartpageService.getCart(userId).subscribe({
-      next: (res: any) => {
-        this.cart = res.cartItems;
-        console.log(this.cart);
-        this.cdr.markForCheck();
-        this.getCart();
-      },
-      error: (err) => console.error('Failed to load cart', err)
-    });
-  }
   calculateTotal(): number {
     return this.cart.reduce((total, product) => total + ( (product.price * product.quantity) * (product.discount/100)), 0);
   }

@@ -12,6 +12,7 @@ import { Privacypolicy } from './privacypolicy/privacypolicy';
 import { Termsandcondtions } from './termsandcondtions/termsandcondtions';
 import { MyAccount } from './my-account/my-account';
 import { MyOrder } from './my-order/my-order';
+import { ProductDetailpage } from './product-detailpage/product-detailpage';
 
 export const routes: Routes = [
 {
@@ -67,6 +68,10 @@ export const routes: Routes = [
 {
     path: "myorder",
     component: MyOrder
+},
+{
+    path: "product/:id",
+    component: ProductDetailpage
 }
     
 ];
