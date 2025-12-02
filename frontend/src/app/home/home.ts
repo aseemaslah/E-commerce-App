@@ -77,6 +77,7 @@ export class Home implements OnInit {
         this.cart = res.cartItems;
         console.log(this.cart);
         this.cdr.markForCheck();
+        this.getCart();
       },
       error: (err) => console.error('Failed to load cart', err)
     });
@@ -99,6 +100,7 @@ export class Home implements OnInit {
     this.cartpageService.updateQuantity(item.productId, newQty)
       .subscribe(() => {
         item.quantity = newQty;
+        this.getCart();
       });
   }
 
@@ -109,6 +111,7 @@ export class Home implements OnInit {
       this.cartpageService.updateQuantity(item.productId, newQty)
         .subscribe(() => {
           item.quantity = newQty;
+          this.getCart();
         });
     }
   }

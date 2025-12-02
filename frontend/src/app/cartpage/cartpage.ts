@@ -72,6 +72,7 @@ export class Cartpage implements OnInit {
     this.cartpageService.updateQuantity(item.productId, newQty)
       .subscribe(() => {
         item.quantity = newQty;
+        this.getCart();
       });
   }
 
@@ -82,6 +83,7 @@ export class Cartpage implements OnInit {
       this.cartpageService.updateQuantity(item.productId, newQty)
         .subscribe(() => {
           item.quantity = newQty;
+          this.getCart();
         });
     }
   }

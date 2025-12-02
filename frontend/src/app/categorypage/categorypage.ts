@@ -73,6 +73,7 @@ export class Categorypage implements OnInit {
       error: (err) => console.error('Failed to add product to cart', err),
       complete: () => console.log('Add to cart request completed')
     });
+    this.getCart();
     alert("Product Added Succesfully")
   }
   getCart(): void {
@@ -83,6 +84,7 @@ export class Categorypage implements OnInit {
         this.cart = res.cartItems;
         console.log(this.cart);
         this.cdr.markForCheck();
+        this.getCart();
       },
       error: (err) => console.error('Failed to load cart', err)
     });
@@ -114,6 +116,7 @@ export class Categorypage implements OnInit {
     this.cartpageService.updateQuantity(item.productId, newQty)
       .subscribe(() => {
         item.quantity = newQty;
+        this.getCart();
       });
   }
 
@@ -124,6 +127,7 @@ export class Categorypage implements OnInit {
       this.cartpageService.updateQuantity(item.productId, newQty)
         .subscribe(() => {
           item.quantity = newQty;
+          this.getCart();
         });
     }
   }
