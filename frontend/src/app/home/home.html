@@ -7,8 +7,9 @@
 
       <form class="d-flex align-items-center flex-grow-1 mx-3 search-container" style="max-width: 600px;">
         <input class="form-control border-0 rounded-start" type="search" placeholder="Search products..."
-          [(ngModel)]="searchTerm" (keyup.enter)="searchProducts()" name="searchTerm"/>
-        <button class="btn btn-light text-primary border-0 rounded-end search-icon" type="submit" (click)="searchProducts()">
+          [(ngModel)]="searchTerm" (keyup.enter)="searchProducts()" name="searchTerm" />
+        <button class="btn btn-light text-primary border-0 rounded-end search-icon" type="submit"
+          (click)="searchProducts()">
           <i class="bi bi-search"></i>
         </button>
       </form>
@@ -85,13 +86,13 @@
 
                   <div>
                     <p class="fw-bold mb-0">{{ carts.name | slice:0:20 }}</p>
-                    <small class="fw-bold text-primary ">{{ carts.quantity * carts.price }} Rs</small>
+                    <small class="fw-bold text-primary ">{{ (carts.price * carts.quantity) * (carts.discount / 100) | currency }} Rs</small>
                   </div>
                 </div>
 
                 <div class="d-flex align-items-center">
-                  <button type="button" class="btn btn-outline-white me-2" (click)="decreaseQty(carts)" >
-                    <i class="bi bi-dash-circle text-primary"  ></i>
+                  <button type="button" class="btn btn-outline-white me-2" (click)="decreaseQty(carts)">
+                    <i class="bi bi-dash-circle text-primary"></i>
                   </button>
 
                   <span class="fw-semibold">{{carts.quantity}}</span>

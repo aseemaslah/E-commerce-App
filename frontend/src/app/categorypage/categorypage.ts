@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { CategorypageService } from '../service/categorypage-service';
 import { CartpageService } from '../service/cartpage-service';
-import { CurrencyPipe, SlicePipe } from '@angular/common';
+import { CurrencyPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-categorypage',
-  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule],
+  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule ,UpperCasePipe],
   templateUrl: './categorypage.html',
   styleUrl: './categorypage.scss',
 })
@@ -88,7 +88,7 @@ export class Categorypage implements OnInit {
     });
   }
   calculateTotal(): number {
-    return this.cart.reduce((total, carts) => total + (carts.price * carts.quantity), 0);
+    return this.cart.reduce((total, carts) => total + ( (carts.price * carts.quantity) * (carts.discount/100)), 0);
   }
   searchProducts() {
     this.categoryService.searchProducts(this.searchTerm).subscribe({

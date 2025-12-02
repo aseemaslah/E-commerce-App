@@ -47,7 +47,7 @@ export class Orderdetails {
   }
 
     calculateTotal(): number {
-    return this.cart.reduce((total, carts) => total + (carts.price * carts.quantity), 0);
+    return this.cart.reduce((total, carts) => total + ( (carts.price * carts.quantity) * (carts.discount/100)), 0);
   }
 }
 

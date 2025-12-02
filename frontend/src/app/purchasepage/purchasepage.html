@@ -53,9 +53,9 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <p class="mb-1 fw-semibold text-dark">{{ product.price | currency : "INR" }}</p>
+                                <p class="mb-1 fw-semibold text-dark">{{ product.price * (product.discount / 100) | currency  }}</p>
                                 <p class="fw-bold text-primary">
-                                    Total : {{ product.price * product.quantity | currency : "INR" }}
+                                    Total : {{ (product.price * product.quantity)* (product.discount / 100)  | currency  }}
                                 </p>
                             </div>
                         </div>

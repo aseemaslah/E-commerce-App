@@ -82,7 +82,7 @@ export class Home implements OnInit {
     });
   }
   calculateTotal(): number {
-    return this.cart.reduce((total, product) => total + (product.price * product.quantity), 0);
+    return this.cart.reduce((total, product) => total + ( (product.price * product.quantity) * (product.discount/100)), 0);
   }
 
 
