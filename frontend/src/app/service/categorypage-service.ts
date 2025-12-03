@@ -12,11 +12,11 @@ export class CategorypageService {
     return this.http.get<any[]>(`https://dummyjson.com/products/category/${category}`);
   }
 
-  searchProducts(query: string) : Observable<any[]> {
+  searchProducts(query: string): Observable<any[]> {
     return this.http.get<any[]>(`https://dummyjson.com/products/search?q=${query}`)
   }
   getProductById(id: any) {
-  return this.http.get(`https://dummyjson.com/products/${id}`);
-}
+    return this.http.get(`https://dummyjson.com/products/${id}`);
+  }
 }
 

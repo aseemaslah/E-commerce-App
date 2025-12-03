@@ -27,8 +27,8 @@ export class Cartpage implements OnInit {
       password: ["", [Validators.required, Validators.minLength(6)]]
     })
     this.getCart()
-
   }
+
   onLogin(): void {
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
@@ -37,7 +37,6 @@ export class Cartpage implements OnInit {
       console.log("Form is invalid");
     }
   }
-
 
   getCart(): void {
     const userId = "user123";
@@ -54,19 +53,19 @@ export class Cartpage implements OnInit {
 
   deleteCart(productId: string): void {
     this.cartpageService.deleteCart(productId).subscribe({
-        next: (res: any) => {
-          console.log('Item deleted from cart', res);
-          this.getCart(); // Refresh the cart after deletion
-        },
-        error: (err) => console.error('Failed to delete item from cart', err)
-      });
+      next: (res: any) => {
+        console.log('Item deleted from cart', res);
+        this.getCart(); // Refresh the cart after deletion
+      },
+      error: (err) => console.error('Failed to delete item from cart', err)
+    });
   }
 
   calculateTotal(): number {
-    return this.cart.reduce((total, carts) => total + ( (carts.price * carts.quantity) * (carts.discount/100)), 0);
+    return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity)), 0);
   }
 
-     increaseQty(item: any) {
+  increaseQty(item: any) {
     const newQty = item.quantity + 1;
 
     this.cartpageService.updateQuantity(item.productId, newQty)

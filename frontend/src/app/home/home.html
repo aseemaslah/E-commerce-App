@@ -8,7 +8,7 @@
       <form class="d-flex align-items-center flex-grow-1 mx-3 search-container" style="max-width: 600px;">
         <input class="form-control border-0 rounded-start" type="search" placeholder="Search products..."
           [(ngModel)]="searchTerm" (keyup.enter)="searchProducts()" name="searchTerm" />
-        <button class="btn btn-light text-primary border-0 rounded-end search-icon" type="submit"
+        <button class="btn btn-white text-primary border-0 rounded-end search-icon" type="submit"
           (click)="searchProducts()">
           <i class="bi bi-search"></i>
         </button>
@@ -86,7 +86,7 @@
 
                   <div>
                     <p class="fw-bold mb-0">{{ carts.name | slice:0:20 }}</p>
-                    <small class="fw-bold text-primary ">{{ (carts.price * carts.quantity) * (carts.discount / 100) | currency }} Rs</small>
+                    <small class="fw-bold text-primary ">{{ (carts.price * carts.quantity) | currency : "USD"}} </small>
                   </div>
                 </div>
 
@@ -228,7 +228,7 @@
         <ul class="list-unstyled">
           <li><a href="#" class="text-dark d-block mb-2" routerLink="/myaccount">My Account</a></li>
           <li><a href="#" class="text-dark d-block mb-2" routerLink="/myorder">My Orders</a></li>
-          
+
         </ul>
       </div>
       <div class="col-lg-3 col-md-6">

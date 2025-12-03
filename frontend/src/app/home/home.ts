@@ -69,31 +69,31 @@ export class Home implements OnInit {
   goToCategory(category: any): void {
     this.router.navigate(['/categorypage', category.name]);
   }
-getCart(): void {
-  const userId = "user123";
-  this.cartpageService.getCart(userId).subscribe({
-    next: (res: any) => {
-      this.cart = res.cartItems;
-      console.log(this.cart);
-      this.cdr.markForCheck();  // mark for Angular to update view
-    },
-    error: (err) => console.error('Failed to load cart', err)
-  });
-}
+  getCart(): void {
+    const userId = "user123";
+    this.cartpageService.getCart(userId).subscribe({
+      next: (res: any) => {
+        this.cart = res.cartItems;
+        console.log(this.cart);
+        this.cdr.markForCheck();  // mark for Angular to update view
+      },
+      error: (err) => console.error('Failed to load cart', err)
+    });
+  }
 
   calculateTotal(): number {
-    return this.cart.reduce((total, product) => total + ( (product.price * product.quantity) * (product.discount/100)), 0);
+    return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity)), 0);
   }
 
 
   searchProducts() {
     this.categoryPageService.searchProducts(this.searchTerm).subscribe(data => {
-      this.products = data; 
+      this.products = data;
     });
   }
 
-  
- increaseQty(item: any) {
+
+  increaseQty(item: any) {
     const newQty = item.quantity + 1;
 
     this.cartpageService.updateQuantity(item.productId, newQty)
@@ -114,7 +114,7 @@ getCart(): void {
         });
     }
   }
-  
+
 
 
 }

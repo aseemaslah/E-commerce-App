@@ -19,7 +19,7 @@ export class CartpageService {
     return this.http.delete(`http://localhost:3000/carts/${productId}`);
   }
 
-    updateQuantity(productId: string, quantity: number) {
+  updateQuantity(productId: string, quantity: number) {
     return this.http.put(`http://localhost:3000/carts/cart/update`, {
       productId,
       quantity

@@ -1,12 +1,13 @@
 .search-container {
   position: relative;
-  display: inline-block; /* Or block, depending on layout */
+  display: inline-block;
+  /* Or block, depending on layout */
 }
 
-  .search-icon {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        /* Other styling for the icon */
-    }
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Other styling for the icon */
+}

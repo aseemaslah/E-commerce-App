@@ -9,7 +9,7 @@
       <form class="d-flex align-items-center flex-grow-1 mx-3 search-container" style="max-width: 600px;">
         <input class="form-control border-0 rounded-start" type="search" placeholder="Search products..."
           [(ngModel)]="searchTerm" (keyup.enter)="searchProducts()" name="searchTerm">
-        <button class="btn btn-light text-primary border-0 rounded-end search-icon" type="submit"
+        <button class="btn btn-white text-primary border-0 rounded-end search-icon" type="submit"
           (click)="searchProducts()">
           <i class="bi bi-search"></i>
         </button>
@@ -90,7 +90,8 @@
 
                   <div>
                     <p class="fw-semibold mb-0">{{ carts.name | slice:0:20 }}</p>
-                    <small class="text-primary fw-semibold">{{ (carts.price * carts.quantity) * (carts.discount / 100) | currency}}</small>
+                    <small class="text-primary fw-semibold">{{ (carts.price * carts.quantity) | currency :
+                      "USD"}}</small>
                   </div>
                 </div>
 
@@ -133,7 +134,7 @@
       @for (p of products; track p.id) {
       <div class="col-6 col-md-4 col-lg-3 category-card">
         <div class="card border-0 shadow-sm h-100 text-center " (click)="goToProduct(p)">
-          <div class="card-body border" >
+          <div class="card-body border">
             <div
               class=" bg-white bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3"
               style="width:250px; height:250px;">
@@ -143,8 +144,9 @@
             <span class="fw-semiold text-dark">{{p.brand}}</span>
           </div>
           <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center gap-3">
-            <span class="fw-semiold text-dark"><del>{{ p.price | currency : "USD"}}</del></span>
-            <h5 class="fw-bold text-primary">{{p.price *(p.discount / 100) | currency: "USD"}}</h5>
+            <span class="fw-semiold text-dark"><del>{{ p.price + (p.price * p.discount / 100) | number:'1.0-0' |
+                currency: "USD"}}</del></span>
+            <h5 class="fw-bold text-primary">{{ p.price | currency : "USD"}}</h5>
           </div>
           <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center gap-2">
             <span class="fw-semiold text-warning">{{p.rating}}</span>
@@ -188,7 +190,7 @@
         <ul class="list-unstyled">
           <li><a href="#" class="text-dark d-block mb-2" routerLink="/myaccount">My Account</a></li>
           <li><a href="#" class="text-dark d-block mb-2" routerLink="/myorder">My Orders</a></li>
-          
+
         </ul>
       </div>
       <div class="col-lg-3 col-md-6">

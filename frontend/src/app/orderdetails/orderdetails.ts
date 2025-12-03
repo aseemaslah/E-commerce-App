@@ -12,7 +12,7 @@ import { CartpageService } from '../service/cartpage-service';
 })
 export class Orderdetails {
 
-  billing : any[] = [];
+  billing: any[] = [];
   cart: any[] = [];
   private purchaseService = inject(PurchaseService);
   private cartpageService = inject(CartpageService);
@@ -32,9 +32,9 @@ export class Orderdetails {
         this.cdr.markForCheck();
       },
       error: (err) => console.error('Failed to load billing details', err)
-    }); 
+    });
   }
-    getCart(): void {
+  getCart(): void {
     const userId = "user123";
     this.cartpageService.getCart(userId).subscribe({
       next: (res: any) => {
@@ -46,8 +46,8 @@ export class Orderdetails {
     });
   }
 
-    calculateTotal(): number {
-    return this.cart.reduce((total, carts) => total + ( (carts.price * carts.quantity) * (carts.discount/100)), 0);
+  calculateTotal(): number {
+    return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity) * (carts.discount / 100)), 0);
   }
 }
 

@@ -12,8 +12,8 @@ export class PurchaseService {
   onSubmit(data: any) {
     return this.http.post('http://localhost:3000/billing/addbilling', data);
   }
-  getBillData(){
+  getBillData() {
     return this.http.get('http://localhost:3000/billing/details')
-}
+  }
 
 }

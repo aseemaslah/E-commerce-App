@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { Login } from './login/login';
+
 import { Home } from './home/home';
 import { Cartpage } from './cartpage/cartpage';
 import { Purchasepage } from './purchasepage/purchasepage';
@@ -15,63 +15,63 @@ import { MyOrder } from './my-order/my-order';
 import { ProductDetailpage } from './product-detailpage/product-detailpage';
 
 export const routes: Routes = [
-{
-    path: "home",
-    component: Home
-},
-{
-    path: "",
-    redirectTo: "home",
-    pathMatch: "full"
-},
-{
-    path: "cartpage",
-    component: Cartpage
-},
-{
-    path: "purchasepage",
-    component: Purchasepage
-},
-{
-    path: "orderdetails",
-    component: Orderdetails
-},
-{
-    path: "categorypage/:category",
-    component: Categorypage
-}, 
+    {
+        path: "home",
+        component: Home
+    },
+    {
+        path: "",
+        redirectTo: "home",
+        pathMatch: "full"
+    },
+    {
+        path: "cartpage",
+        component: Cartpage
+    },
+    {
+        path: "purchasepage",
+        component: Purchasepage
+    },
+    {
+        path: "orderdetails",
+        component: Orderdetails
+    },
+    {
+        path: "categorypage/:category",
+        component: Categorypage
+    },
 
-{
-    path: "about",
-    component: Aboutus
-},
-{
-    path: "contact",
-    component: Contactus
-},
-{
-    path: "developer",
-    component: Developerinformation
-},
-{
-    path: "privacypolicy",
-    component:Privacypolicy
-},
-{
-    path: "terms",
-    component: Termsandcondtions
-},
-{
-    path: "myaccount",
-    component: MyAccount
-},
-{
-    path: "myorder",
-    component: MyOrder
-},
-{
-    path: "product/:id",
-    component: ProductDetailpage
-}
-    
+    {
+        path: "about",
+        component: Aboutus
+    },
+    {
+        path: "contact",
+        component: Contactus
+    },
+    {
+        path: "developer",
+        component: Developerinformation
+    },
+    {
+        path: "privacypolicy",
+        component: Privacypolicy
+    },
+    {
+        path: "terms",
+        component: Termsandcondtions
+    },
+    {
+        path: "myaccount",
+        component: MyAccount
+    },
+    {
+        path: "myorder",
+        component: MyOrder
+    },
+    {
+        path: "product/:id",
+        component: ProductDetailpage
+    }
+
 ];

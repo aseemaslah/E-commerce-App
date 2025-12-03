@@ -4,22 +4,17 @@
       <a class="navbar-brand fw-bold text-white" href="#">
         E-Commerce <i class="bi bi-discord"></i>
       </a>
-
-
       <form class="d-flex align-items-center flex-grow-1 mx-3 search-container" style="max-width: 600px;">
         <input class="form-control border-0 rounded-start" type="search" placeholder="Search products..." />
-        <button class="btn btn-light text-primary border-0 rounded-end search-icon" type="submit">
+        <button class="btn btn-white text-primary border-0 rounded-end search-icon" type="submit">
           <i class="bi bi-search"></i>
         </button>
       </form>
-
       <div class="d-flex align-items-center">
-
         <button type="button" class="btn btn-light text-primary me-3 fw-semibold" data-bs-toggle="modal"
           data-bs-target="#myModal">
           Login
         </button>
-
         <div class="modal fade" id="myModal" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content border-0 shadow-lg">
@@ -40,7 +35,6 @@
                     <div class="text-danger small mt-1">Enter a valid email.</div>
                     }}
                   </div>
-
                   <div class="mb-3">
                     <label for="password" class="form-label fw-semibold">Password</label>
                     <input type="password" id="password" class="form-control" formControlName="password"
@@ -52,7 +46,6 @@
                     <div class="text-danger small mt-1">Password is incorrect.</div>
                     }}
                   </div>
-
                   <button type="submit" class="btn btn-primary w-100">Login</button>
                 </form>
               </div>
@@ -62,7 +55,6 @@
             </div>
           </div>
         </div>
-
         <div class="dropdown me-3">
           <a class="dropdown-toggle text-white fw-bold text-decoration-none" href="#" role="button"
             data-bs-toggle="dropdown">More</a>
@@ -75,55 +67,55 @@
     </div>
   </nav>
 </header>
-
 <section class="py-5 bg-white">
-    <div class="container">
-        <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-4">
-            <h3 class="fw-bold text-primary mb-0">Your Shopping Cart</h3>
-        </div>
-        <div class="card shadow-sm border-0 mb-3 bg-light">
-            @for (carts of cart; track carts.id) {
-            <div class="card-body d-flex align-items-center justify-content-between flex-wrap py-3">
-                <div class="d-flex align-items-center flex-grow-1" style="min-width: 260px;">
-                    <img src="{{carts.image}}" class="img-thumbnail me-3" style="height: 90px; width: 90px;">
-                    <div>
-                        <h5 class="mb-1">{{carts.name | slice:0:30}}</h5>
-                        <p class="text-primary mb-0 fw-semibold">{{carts.price * (carts.discount / 100) | currency}} / Nos</p>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center justify-content-center" style="width: 160px;">
-                    <button class="btn btn-sm btn-light me-2" (click)="decreaseQty(carts)">
-                        <i class="bi bi-dash-circle text-primary"></i>
-                    </button>
-                    <span class="fw-semibold">{{carts.quantity}}</span>
-                    <button class="btn btn-sm btn-light ms-2" (click)="increaseQty(carts)">
-                        <i class="bi bi-plus-circle text-primary"></i>
-                    </button>
-                </div>
-                <div class="text-center fw-bold text-primary" style="width: 160px;">
-                    Total: {{ (carts.price * carts.quantity) | currency  }}
-                </div>
-                <div class="d-flex flex-column gap-2" >
-                    <button class="btn btn-sm btn-outline-dark " (click)="deleteCart(carts.productId)">
-                        <i class="bi bi-trash "></i> 
-                    </button>
-                </div>
-            </div>
-            }
-            @empty {
-            <div class="card-body">
-                <h5 class="text-center text-muted">Your cart is empty.</h5>
-            </div>
-            }
-        </div>
-        <div class="d-flex justify-content-end mt-4 ">
-            <h5 class="fw-bold text-primary">Total: {{ calculateTotal() | currency}}</h5>
-        </div>
-        <div class="col-12 d-flex justify-content-end mt-4" >
-            <button type="submit" class="btn btn-primary px-4 me-2 shadow-sm" routerLink="/purchasepage">Make It Yours</button>
-            <button type="button" class="btn btn-outline-danger px-4" routerLink="/home">Continue Shopping</button>
-        </div>
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between border-bottom pb-2 mb-4">
+      <h3 class="fw-bold text-primary mb-0">Your Shopping Cart</h3>
     </div>
+    <div class="card shadow-sm border-0 mb-3 bg-light">
+      @for (carts of cart; track carts.id) {
+      <div class="card-body d-flex align-items-center justify-content-between flex-wrap py-3">
+        <div class="d-flex align-items-center flex-grow-1" style="min-width: 260px;">
+          <img src="{{carts.image}}" class="img-thumbnail me-3" style="height: 90px; width: 90px;">
+          <div>
+            <h5 class="mb-1">{{carts.name | slice:0:30}}</h5>
+            <p class="text-primary mb-0 fw-semibold">{{ carts.price | currency : "USD"}} / Nos</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center" style="width: 160px;">
+          <button class="btn btn-sm btn-light me-2" (click)="decreaseQty(carts)">
+            <i class="bi bi-dash-circle text-primary"></i>
+          </button>
+          <span class="fw-semibold">{{carts.quantity}}</span>
+          <button class="btn btn-sm btn-light ms-2" (click)="increaseQty(carts)">
+            <i class="bi bi-plus-circle text-primary"></i>
+          </button>
+        </div>
+        <div class="text-center fw-bold text-primary" style="width: 160px;">
+          Total: {{ (carts.price * carts.quantity) | currency : "USD" }}
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <button class="btn btn-sm btn-outline-dark " (click)="deleteCart(carts.productId)">
+            <i class="bi bi-trash "></i>
+          </button>
+        </div>
+      </div>
+      }
+      @empty {
+      <div class="card-body">
+        <h5 class="text-center text-muted">Your cart is empty.</h5>
+      </div>
+      }
+    </div>
+    <div class="d-flex justify-content-end mt-4 ">
+      <h5 class="fw-bold text-primary">Total: {{ calculateTotal() | currency}}</h5>
+    </div>
+    <div class="col-12 d-flex justify-content-end mt-4">
+      <button type="submit" class="btn btn-primary px-4 me-2 shadow-sm" routerLink="/purchasepage">Make It
+        Yours</button>
+      <button type="button" class="btn btn-outline-danger px-4" routerLink="/home">Continue Shopping</button>
+    </div>
+  </div>
 </section>
 <footer class="py-5 bg-light  border-top">
   <div class="container">
@@ -151,12 +143,10 @@
         <ul class="list-unstyled">
           <li><a href="#" class="text-dark d-block mb-2" routerLink="/myaccount">My Account</a></li>
           <li><a href="#" class="text-dark d-block mb-2" routerLink="/myorder">My Orders</a></li>
-          
         </ul>
       </div>
       <div class="col-lg-3 col-md-6">
         <h6 class="fw-bold mb-3">INFORMATION</h6>
-
         <p class="mb-2">
           <i class="bi bi-telephone me-2"></i> Call Us: 9037432518
         </p>
@@ -167,7 +157,6 @@
           <i class="bi bi-envelope me-2"></i> ecommerce@gmail.com
         </p>
       </div>
-
     </div>
   </div>
 </footer>

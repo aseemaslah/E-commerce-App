@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HomeService {
- 
+
   private http = inject(HttpClient);
 
 

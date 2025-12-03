@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { CategorypageService } from '../service/categorypage-service';
 import { CartpageService } from '../service/cartpage-service';
-import { CurrencyPipe, SlicePipe, UpperCasePipe } from '@angular/common';
+import { CurrencyPipe, DecimalPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-categorypage',
-  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule ,UpperCasePipe],
+  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule, UpperCasePipe, DecimalPipe],
   templateUrl: './categorypage.html',
   styleUrl: './categorypage.scss',
 })
@@ -17,7 +17,7 @@ export class Categorypage implements OnInit {
   cart: any[] = [];
   searchTerm: string = '';
   product: any[] = [];
-  category : string = '';
+  category: string = '';
 
   private forms = inject(FormBuilder);
   private route = inject(ActivatedRoute);
@@ -38,7 +38,7 @@ export class Categorypage implements OnInit {
     this.getCart();
   }
 
-  fetchProducts(category : string): void {
+  fetchProducts(category: string): void {
     this.categoryService.fetchProducts(category).subscribe({
       next: (res: any) => {
         this.products = res.products.map((p: any) => ({
@@ -77,23 +77,24 @@ export class Categorypage implements OnInit {
     this.getCart();
     alert("Product Added Succesfully")
   }
-getCart(): void {
-  const userId = "user123";
-  this.cartpageService.getCart(userId).subscribe({
-    next: (res: any) => {
-      this.cart = res.cartItems;
-      console.log(this.cart);
-      this.cdr.markForCheck(); 
-    },
-    error: (err) => console.error('Failed to load cart', err)
-  });
-}
-  calculateTotal(): number {
-    return this.cart.reduce((total, carts) => total + ( (carts.price * carts.quantity) * (carts.discount/100)), 0);
+  getCart(): void {
+    const userId = "user123";
+    this.cartpageService.getCart(userId).subscribe({
+      next: (res: any) => {
+        this.cart = res.cartItems;
+        console.log(this.cart);
+        this.cdr.markForCheck();
+      },
+      error: (err) => console.error('Failed to load cart', err)
+    });
   }
+  calculateTotal(): number {
+    return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity)), 0);
+  }
+
   searchProducts() {
     this.categoryService.searchProducts(this.searchTerm).subscribe({
-        next: (res: any) => {
+      next: (res: any) => {
         this.products = res.products.map((p: any) => ({
           productId: p.id,
           name: p.title,
@@ -104,12 +105,12 @@ getCart(): void {
           rating: p.rating,
         }));
         this.cdr.markForCheck();
-        },
-        error: (err) => console.error('Search error:', err),
-      });
+      },
+      error: (err) => console.error('Search error:', err),
+    });
   }
 
-   increaseQty(item: any) {
+  increaseQty(item: any) {
     const newQty = item.quantity + 1;
 
     this.cartpageService.updateQuantity(item.productId, newQty)
@@ -130,8 +131,8 @@ getCart(): void {
         });
     }
   }
-    goToProduct(product: any): void {
+  goToProduct(product: any): void {
     this.router.navigate(['/product', product.productId]);
-    console.log ("success")
+    console.log("success")
   }
 }
