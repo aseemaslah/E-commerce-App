@@ -133,8 +133,8 @@
     <div class="row g-4 justify-content-start">
       @for (p of products; track p.id) {
       <div class="col-6 col-md-4 col-lg-3 category-card">
-        <div class="card border-0 shadow-sm h-100 text-center " (click)="goToProduct(p)">
-          <div class="card-body border">
+        <div class="card border-0 shadow-sm h-100 text-center ">
+          <div class="card-body border" (click)="goToProduct(p)">
             <div
               class=" bg-white bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3"
               style="width:250px; height:250px;">
@@ -143,16 +143,13 @@
             <h5 class="fw-semibold text-dark text-capitalize">{{ p.name }}</h5>
             <span class="fw-semiold text-dark">{{p.brand}}</span>
           </div>
-          <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center gap-3">
-            <span class="fw-semiold text-dark"><del>{{ p.price + (p.price * p.discount / 100) | number:'1.0-0' |
+          <div class="card-footer bg-white border-0 d-flex justify-content-start align-items-center gap-3">
+            <h5 class="fw-bold text-primary" style="margin-top: 8px;">{{ p.price | currency : "USD"}}</h5>
+            <span class=" text-muted" ><del>{{ p.price + (p.price * p.discount / 100) | number:'1.0-0' |
                 currency: "USD"}}</del></span>
-            <h5 class="fw-bold text-primary">{{ p.price | currency : "USD"}}</h5>
+            <span class="fw-semiold text-warning">{{p.rating}} <i class="bi bi-star-fill text-warning"></i></span>           
           </div>
-          <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center gap-2">
-            <span class="fw-semiold text-warning">{{p.rating}}</span>
-            <i class="bi bi-star-fill text-warning"></i>
-          </div>
-          <button type="button" class="btn btn-sm btn-primary " (click)="addToCart(p)">
+          <button type="button" class="btn btn-sm btn-primary mb-3 mx-4 " (click)="addToCart(p)">
             <i class="bi bi-cart-plus-fill"></i> Add to Cart
           </button>
         </div>

@@ -135,4 +135,5 @@ export class Categorypage implements OnInit {
     this.router.navigate(['/product', product.productId]);
     console.log("success")
   }
+  
 }
