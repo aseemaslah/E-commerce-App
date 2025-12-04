@@ -119,8 +119,12 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-outline-primary text-white fw-bold" data-bs-toggle="offcanvas" data-bs-target="#demo">
-          <i class="bi bi-cart3"></i> Cart
+        <button class="btn btn-outline-primary text-white fw-bold position-relative" data-bs-toggle="offcanvas"
+          data-bs-target="#demo">
+          <i class="bi bi-cart3"><span class="badge rounded-pill bg-danger ms-1">
+            3
+          </span></i>
+  
         </button>
       </div>
     </div>
@@ -135,19 +139,19 @@
       <div class="col-6 col-md-4 col-lg-3 category-card">
         <div class="card border-0 shadow-sm h-100 text-center ">
           <div class="card-body border" (click)="goToProduct(p)">
+            <span class="badge bg-danger ">{{p.discount}}% OFF</span>
             <div
               class=" bg-white bg-opacity-10 text-primary d-flex align-items-center justify-content-center mx-auto mb-3"
-              style="width:250px; height:250px;">
-              <img [src]="p.image" alt="{{ p.title }}" class="img-fluid" style="max-height:200px; max-width:200px;" />
+              style="width:150px; height:150px;">
+              <img [src]="p.image" alt="{{ p.title }}" class="img-fluid" style="max-height:150px; max-width:150px;" />
             </div>
             <h5 class="fw-semibold text-dark text-capitalize">{{ p.name }}</h5>
             <span class="fw-semiold text-dark">{{p.brand}}</span>
           </div>
           <div class="card-footer bg-white border-0 d-flex justify-content-start align-items-center gap-3">
             <h5 class="fw-bold text-primary" style="margin-top: 8px;">{{ p.price | currency : "USD"}}</h5>
-            <span class=" text-muted" ><del>{{ p.price + (p.price * p.discount / 100) | number:'1.0-0' |
+            <span class=" text-muted"><del>{{ p.price + (p.price * p.discount / 100) | number:'1.0-0' |
                 currency: "USD"}}</del></span>
-            <span class="fw-semiold text-warning">{{p.rating}} <i class="bi bi-star-fill text-warning"></i></span>           
           </div>
           <button type="button" class="btn btn-sm btn-primary mb-3 mx-4 " (click)="addToCart(p)">
             <i class="bi bi-cart-plus-fill"></i> Add to Cart
@@ -168,7 +172,7 @@
       <div class="col-lg-3 col-md-6">
         <h3 class=" fw-bold text-primary ">E-Commerce <i class="bi bi-discord"></i></h3>
         <div class="d-flex gap-3 mt-3">
-          <a href="https://www.facebook.com/aseem.aselah/" class="text-dark fs-5"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.facebook.com/" class="text-dark fs-5"><i class="bi bi-facebook"></i></a>
           <a href="https://x.com/" class="text-dark fs-5"><i class="bi bi-twitter-x"></i></a>
           <a href="https://www.instagram.com/" class="text-dark fs-5"><i class="bi bi-instagram"></i></a>
         </div>
