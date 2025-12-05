@@ -121,6 +121,15 @@ private forms = inject(FormBuilder);
     this.getCart();
     alert("Product Added Succesfully")
   }
+    deleteCart(productId: string): void {
+    this.cartpageService.deleteCart(productId).subscribe({
+      next: (res: any) => {
+        console.log('Item deleted from cart', res);
+        this.getCart();
+      },
+      error: (err) => console.error('Failed to delete item from cart', err)
+    });
+  }
 }
 
   

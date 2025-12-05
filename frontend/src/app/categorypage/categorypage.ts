@@ -135,5 +135,13 @@ export class Categorypage implements OnInit {
     this.router.navigate(['/product', product.productId]);
     console.log("success")
   }
-  
+    deleteCart(productId: string): void {
+    this.cartpageService.deleteCart(productId).subscribe({
+      next: (res: any) => {
+        console.log('Item deleted from cart', res);
+        this.getCart();
+      },
+      error: (err) => console.error('Failed to delete item from cart', err)
+    });
+  }
 }
