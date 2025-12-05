@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 @Component({
   selector: 'app-product-detailpage',
-  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule ,DecimalPipe],
+  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule ],
   templateUrl: './product-detailpage.html',
   styleUrl: './product-detailpage.scss',
 })
@@ -118,18 +118,10 @@ private forms = inject(FormBuilder);
       error: (err) => console.error('Failed to add product to cart', err),
       complete: () => console.log('Add to cart request completed')
     });
+    alert("Product Added Succesfully");
     this.getCart();
-    alert("Product Added Succesfully")
   }
-    deleteCart(productId: string): void {
-    this.cartpageService.deleteCart(productId).subscribe({
-      next: (res: any) => {
-        console.log('Item deleted from cart', res);
-        this.getCart();
-      },
-      error: (err) => console.error('Failed to delete item from cart', err)
-    });
-  }
+   
 }
 
   

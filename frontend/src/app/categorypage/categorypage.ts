@@ -7,7 +7,7 @@ import { CurrencyPipe, DecimalPipe, SlicePipe, UpperCasePipe } from '@angular/co
 
 @Component({
   selector: 'app-categorypage',
-  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule, UpperCasePipe, DecimalPipe],
+  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule, UpperCasePipe],
   templateUrl: './categorypage.html',
   styleUrl: './categorypage.scss',
 })
@@ -74,8 +74,8 @@ export class Categorypage implements OnInit {
       error: (err) => console.error('Failed to add product to cart', err),
       complete: () => console.log('Add to cart request completed')
     });
-    this.getCart();
     alert("Product Added Succesfully")
+     this.getCart();
   }
   getCart(): void {
     const userId = "user123";
@@ -134,14 +134,5 @@ export class Categorypage implements OnInit {
   goToProduct(product: any): void {
     this.router.navigate(['/product', product.productId]);
     console.log("success")
-  }
-    deleteCart(productId: string): void {
-    this.cartpageService.deleteCart(productId).subscribe({
-      next: (res: any) => {
-        console.log('Item deleted from cart', res);
-        this.getCart();
-      },
-      error: (err) => console.error('Failed to delete item from cart', err)
-    });
   }
 }

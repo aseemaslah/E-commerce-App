@@ -93,9 +93,7 @@
                   <button type="button" class="btn btn-outline-white ms-2" (click)="increaseQty(carts)">
                     <i class="bi bi-plus-circle text-primary"></i>
                   </button>
-                  <button type="button" class="btn btn-outline-white " (click)="deleteCart(carts.productId)">
-                    <i class="bi bi-trash text-danger"></i>
-                  </button>
+                
                 </div>
               </div>}
             </div>
@@ -146,7 +144,7 @@
             <span class="price">{{ product.price |currency}}</span>
             @if (product.discountPercentage) {
             <span class="old-price ms-2">
-              {{ product.price + (product.price * product.discountPercentage / 100) | number:'1.0-0' | currency: "USD"}}
+              {{ product.price + (product.price * product.discountPercentage / 100) | currency}}
             </span>
             }
           </div>

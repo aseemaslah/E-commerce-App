@@ -105,10 +105,6 @@
                   <button type="button" class="btn btn-outline-white ms-2" (click)="increaseQty(carts)">
                     <i class="bi bi-plus-circle text-primary"></i>
                   </button>
-
-                  <button type="button" class="btn btn-outline-white " (click)="deleteCart(carts.productId)">
-                    <i class="bi bi-trash text-danger"></i>
-                  </button>
                 </div>
               </div>}
             </div>
@@ -152,9 +148,8 @@
             <span class="fw-semiold text-dark">{{p.brand}}</span>
           </div>
           <div class="card-footer bg-white border-0 d-flex justify-content-start align-items-center gap-3">
-            <h5 class="fw-bold text-primary" style="margin-top: 8px;">{{ p.price | currency : "USD"}}</h5>
-            <span class=" text-muted"><del>{{ p.price + (p.price * p.discount / 100) | number:'1.0-0' |
-                currency: "USD"}}</del></span>
+            <h5 class="fw-bold text-primary" style="margin-top: 8px;">{{ p.price | currency}}</h5>
+            <span class=" text-muted"><del>{{ p.price + (p.price * p.discount / 100)  | currency}}</del></span>
           </div>
           <button type="button" class="btn btn-sm btn-primary mb-3 mx-4 " (click)="addToCart(p)">
             <i class="bi bi-cart-plus-fill"></i> Add to Cart

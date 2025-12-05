@@ -75,7 +75,7 @@ export class Home implements OnInit {
       next: (res: any) => {
         this.cart = res.cartItems;
         console.log(this.cart);
-        this.cdr.markForCheck();  // mark for Angular to update view
+        this.cdr.markForCheck(); 
       },
       error: (err) => console.error('Failed to load cart', err)
     });
@@ -114,15 +114,7 @@ export class Home implements OnInit {
         });
     }
   }
-    deleteCart(productId: string): void {
-    this.cartpageService.deleteCart(productId).subscribe({
-      next: (res: any) => {
-        console.log('Item deleted from cart', res);
-        this.getCart();
-      },
-      error: (err) => console.error('Failed to delete item from cart', err)
-    });
-  }
+
 
 
 
