@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 @Component({
   selector: 'app-product-detailpage',
-  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule ],
+  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule,  ],
   templateUrl: './product-detailpage.html',
   styleUrl: './product-detailpage.scss',
 })
