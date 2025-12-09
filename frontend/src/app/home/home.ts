@@ -11,6 +11,7 @@ import { HomeService } from '../service/home-service';
 import { CartpageService } from '../service/cartpage-service';
 import { CurrencyPipe, SlicePipe } from '@angular/common';
 import { CategorypageService } from '../service/categorypage-service';
+import { LoginPage } from '../service/login-page';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +33,11 @@ export class Home implements OnInit {
   private homeService = inject(HomeService);
   private cdr = inject(ChangeDetectorRef);
   private cartpageService = inject(CartpageService);
-  private categoryPageService = inject(CategorypageService)
+  private categoryPageService = inject(CategorypageService);
+  private loginPageService = inject(LoginPage);
+
+
+
 
 
   ngOnInit(): void {
@@ -60,6 +65,8 @@ export class Home implements OnInit {
 
   onLogin(): void {
     if (this.loginForm.valid) {
+      this.loginPageService.Login(this.loginForm.value).subscribe
+
       console.log('Form Data:', this.loginForm.value);
     } else {
       console.log('Form is invalid');
@@ -114,8 +121,6 @@ export class Home implements OnInit {
         });
     }
   }
-
-
 
 
 }
