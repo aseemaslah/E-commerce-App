@@ -4,10 +4,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CurrencyPipe, DecimalPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 import { CartpageService } from '../service/cartpage-service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Navbar } from "../navbar/navbar";
 
 @Component({
   selector: 'app-product-detailpage',
-  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule,  ],
+  imports: [ReactiveFormsModule, RouterLink,  CurrencyPipe, FormsModule, Navbar],
   templateUrl: './product-detailpage.html',
   styleUrl: './product-detailpage.scss',
 })

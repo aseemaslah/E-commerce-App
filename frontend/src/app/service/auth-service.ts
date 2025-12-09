@@ -5,14 +5,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-    // check localStorage during app load
+
   private loggedIn = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
-
-  // components subscribe to this
   isLoggedIn$ = this.loggedIn.asObservable();
-
-  // call this after successful login
-  setLogin(token: string) {
+ 
+  setLogin(token: string) {      
     localStorage.setItem('token', token);
     this.loggedIn.next(true);
   }

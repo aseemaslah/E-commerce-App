@@ -4,10 +4,11 @@ import { CartpageService } from '../service/cartpage-service';
 import { CommonModule, SlicePipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PurchaseService } from '../service/purchase-service';
+import { Navbar } from "../navbar/navbar";
 
 @Component({
   selector: 'app-purchasepage',
-  imports: [RouterLink, SlicePipe, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, SlicePipe, ReactiveFormsModule, CommonModule, Navbar],
   templateUrl: './purchasepage.html',
   styleUrl: './purchasepage.scss',
 })

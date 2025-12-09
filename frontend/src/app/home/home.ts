@@ -13,11 +13,12 @@ import { CurrencyPipe, SlicePipe } from '@angular/common';
 import { CategorypageService } from '../service/categorypage-service';
 import { LoginPage } from '../service/login-page';
 import { AuthService } from '../service/auth-service';
+import { Navbar } from "../navbar/navbar";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, Navbar],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
 })

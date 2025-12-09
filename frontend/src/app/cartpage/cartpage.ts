@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RouterLink } from '@angular/router';
 import { CartpageService } from '../service/cartpage-service';
 import { CurrencyPipe, DecimalPipe, SlicePipe } from '@angular/common';
+import { Navbar } from "../navbar/navbar";
 
 @Component({
   selector: 'app-cartpage',
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, Navbar],
   templateUrl: './cartpage.html',
   styleUrl: './cartpage.scss',
 })

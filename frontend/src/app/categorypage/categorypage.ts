@@ -4,10 +4,11 @@ import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { CategorypageService } from '../service/categorypage-service';
 import { CartpageService } from '../service/cartpage-service';
 import { CurrencyPipe, DecimalPipe, SlicePipe, UpperCasePipe } from '@angular/common';
+import { Navbar } from "../navbar/navbar";
 
 @Component({
   selector: 'app-categorypage',
-  imports: [ReactiveFormsModule, RouterLink, SlicePipe, CurrencyPipe, FormsModule, UpperCasePipe],
+  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, FormsModule, UpperCasePipe, Navbar],
   templateUrl: './categorypage.html',
   styleUrl: './categorypage.scss',
 })
