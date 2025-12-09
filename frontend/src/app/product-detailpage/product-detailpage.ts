@@ -9,27 +9,23 @@ import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-product-detailpage',
-  imports: [ReactiveFormsModule,  CurrencyPipe, FormsModule, Navbar, Footer],
+  imports: [ReactiveFormsModule, CurrencyPipe, FormsModule, Navbar, Footer],
   templateUrl: './product-detailpage.html',
   styleUrl: './product-detailpage.scss',
 })
 export class ProductDetailpage {
   product: any;
-  loginForm!: FormGroup;
-   cart: any[] = [];
-   products: any[] = [];
-   searchTerm: string = '';
-private forms = inject(FormBuilder);
+  cart: any[] = [];
+  products: any[] = [];
+  searchTerm: string = '';
+
   private route = inject(ActivatedRoute);
   private categoryService = inject(CategorypageService);
   private cdr = inject(ChangeDetectorRef);
   private cartpageService = inject(CartpageService)
 
   ngOnInit(): void {
-    this.loginForm = this.forms.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(6)]]
-    })
+
 
     this.route.params.subscribe(params => {
       const id = Number(params['id']);
@@ -38,15 +34,6 @@ private forms = inject(FormBuilder);
       }
     });
     this.getCart();
-  }
-  
-  onLogin(): void {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-    }
-    else {
-      console.log("Form is invalid");
-    }
   }
 
 
@@ -59,60 +46,19 @@ private forms = inject(FormBuilder);
       error: err => console.error(err)
     });
   }
-  
-   increaseQty(item: any) {
-    const newQty = item.quantity + 1;
 
-    this.cartpageService.updateQuantity(item.productId, newQty)
-      .subscribe(() => {
-        item.quantity = newQty;
-        this.getCart();
-      });
-  }
-
-  decreaseQty(item: any) {
-    if (item.quantity > 1) {
-      const newQty = item.quantity - 1;
-
-      this.cartpageService.updateQuantity(item.productId, newQty)
-        .subscribe(() => {
-          item.quantity = newQty;
-          this.getCart();
-        });
-    }
-  }
   getCart(): void {
-  const userId = "user123";
-  this.cartpageService.getCart(userId).subscribe({
-    next: (res: any) => {
-      this.cart = res.cartItems;
-      console.log(this.cart);
-      this.cdr.markForCheck(); 
-    },
-    error: (err) => console.error('Failed to load cart', err)
-  });
-}
-  calculateTotal(): number {
-    return this.cart.reduce((total, carts) => total + ( (carts.price * carts.quantity)), 0);
-  }
-    searchProducts() {
-    this.categoryService.searchProducts(this.searchTerm).subscribe({
-        next: (res: any) => {
-        this.products = res.products.map((p: any) => ({
-          productId: p.id,
-          name: p.title,
-          price: p.price,
-          image: p.thumbnail,
-          discount: p.discountPercentage,
-          brand: p.brand,
-          rating: p.rating,
-        }));
+    const userId = "user123";
+    this.cartpageService.getCart(userId).subscribe({
+      next: (res: any) => {
+        this.cart = res.cartItems;
+        console.log(this.cart);
         this.cdr.markForCheck();
-        },
-        error: (err) => console.error('Search error:', err),
-      });
+      },
+      error: (err) => console.error('Failed to load cart', err)
+    });
   }
-    addToCart(product: any): void {
+  addToCart(product: any): void {
     this.cartpageService.addToCart(product).subscribe({
       next: (res) => {
         console.log('Product added to cart', res);
@@ -123,7 +69,7 @@ private forms = inject(FormBuilder);
     alert("Product Added Succesfully");
     this.getCart();
   }
-   
+
 }
 
-  
+

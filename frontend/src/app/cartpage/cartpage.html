@@ -45,8 +45,16 @@
       <h5 class="fw-bold text-primary">Total: {{ calculateTotal() | currency}}</h5>
     </div>
     <div class="col-12 d-flex justify-content-end mt-4">
-      <button type="submit" class="btn btn-primary px-4 me-2 shadow-sm" routerLink="/purchasepage">Make It
-        Yours</button>
+      @if (!isLoggedIn) {
+        <button type="button" class="btn btn-primary text-white me-3 fw-semibold"  data-bs-toggle="modal" 
+        data-bs-target="#myModal">
+          Make It Yours
+        </button>
+        } @else {
+          <button type="button" class="btn btn-primary text-white me-3 fw-semibold" (click)="goToCheckout()">
+          Make It Yours
+        </button>}
+        
       <button type="button" class="btn btn-outline-danger px-4" routerLink="/home">Continue Shopping</button>
     </div>
   </div>

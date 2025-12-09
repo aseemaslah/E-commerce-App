@@ -41,8 +41,20 @@ export class Navbar {
   }
 
   searchProducts() {
-    this.categoryPageService.searchProducts(this.searchTerm).subscribe(data => {
-      this.products = data;
+    this.categoryPageService.searchProducts(this.searchTerm).subscribe({
+      next: (res: any) => {
+        this.products = res.products.map((p: any) => ({
+          productId: p.id,
+          name: p.title,
+          price: p.price,
+          image: p.thumbnail,
+          discount: p.discountPercentage,
+          brand: p.brand,
+          rating: p.rating,
+        }));
+        this.cdr.markForCheck();
+      },
+      error: (err) => console.error('Search error:', err),
     });
   }
 
@@ -106,6 +118,10 @@ export class Navbar {
   onLogout() {
     this.authService.logout();
     this.router.navigate(['/home']);
+  }
+
+    goToCheckout() {
+    this.router.navigate(['purchasepage']);
   }
 
 }

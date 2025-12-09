@@ -14,14 +14,12 @@ import { Footer } from "../footer/footer";
   styleUrl: './categorypage.scss',
 })
 export class Categorypage implements OnInit {
-  loginForm!: FormGroup;
   products: any[] = [];
   cart: any[] = [];
-  searchTerm: string = '';
   product: any[] = [];
   category: string = '';
 
-  private forms = inject(FormBuilder);
+
   private route = inject(ActivatedRoute);
   private categoryService = inject(CategorypageService);
   private cdr = inject(ChangeDetectorRef);
@@ -29,10 +27,7 @@ export class Categorypage implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.loginForm = this.forms.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(6)]]
-    })
+
     this.route.params.subscribe((params: Params) => {
       this.category = params['category'];
       this.fetchProducts(this.category);
@@ -59,14 +54,6 @@ export class Categorypage implements OnInit {
     });
   }
 
-  onLogin(): void {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-    }
-    else {
-      console.log("Form is invalid");
-    }
-  }
 
   addToCart(product: any): void {
     this.cartpageService.addToCart(product).subscribe({
@@ -79,6 +66,7 @@ export class Categorypage implements OnInit {
     alert("Product Added Succesfully")
      this.getCart();
   }
+  
   getCart(): void {
     const userId = "user123";
     this.cartpageService.getCart(userId).subscribe({
@@ -89,49 +77,6 @@ export class Categorypage implements OnInit {
       },
       error: (err) => console.error('Failed to load cart', err)
     });
-  }
-  calculateTotal(): number {
-    return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity)), 0);
-  }
-
-  searchProducts() {
-    this.categoryService.searchProducts(this.searchTerm).subscribe({
-      next: (res: any) => {
-        this.products = res.products.map((p: any) => ({
-          productId: p.id,
-          name: p.title,
-          price: p.price,
-          image: p.thumbnail,
-          discount: p.discountPercentage,
-          brand: p.brand,
-          rating: p.rating,
-        }));
-        this.cdr.markForCheck();
-      },
-      error: (err) => console.error('Search error:', err),
-    });
-  }
-
-  increaseQty(item: any) {
-    const newQty = item.quantity + 1;
-
-    this.cartpageService.updateQuantity(item.productId, newQty)
-      .subscribe(() => {
-        item.quantity = newQty;
-        this.getCart();
-      });
-  }
-
-  decreaseQty(item: any) {
-    if (item.quantity > 1) {
-      const newQty = item.quantity - 1;
-
-      this.cartpageService.updateQuantity(item.productId, newQty)
-        .subscribe(() => {
-          item.quantity = newQty;
-          this.getCart();
-        });
-    }
   }
   goToProduct(product: any): void {
     this.router.navigate(['/product', product.productId]);

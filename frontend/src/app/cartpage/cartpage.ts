@@ -1,10 +1,11 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CartpageService } from '../service/cartpage-service';
 import { CurrencyPipe, DecimalPipe, SlicePipe } from '@angular/common';
 import { Navbar } from "../navbar/navbar";
 import { Footer } from "../footer/footer";
+import { AuthService } from '../service/auth-service';
 
 @Component({
   selector: 'app-cartpage',
@@ -13,31 +14,21 @@ import { Footer } from "../footer/footer";
   styleUrl: './cartpage.scss',
 })
 export class Cartpage implements OnInit {
-  loginForm!: FormGroup;
   cart: any[] = [];
+   isLoggedIn: boolean = false;
 
-
-  private form = inject(FormBuilder);
   private cartpageService = inject(CartpageService);
   private cdr = inject(ChangeDetectorRef);
+  private authService =inject(AuthService);
+  private router = inject(Router)
 
 
 
   ngOnInit(): void {
-    this.loginForm = this.form.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(6)]]
-    })
+        this.authService.isLoggedIn$.subscribe(status => {
+      this.isLoggedIn = status;
+    });
     this.getCart()
-  }
-
-  onLogin(): void {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-    }
-    else {
-      console.log("Form is invalid");
-    }
   }
 
   getCart(): void {
@@ -88,6 +79,18 @@ export class Cartpage implements OnInit {
         });
     }
   }
+
+  LoginMessage(){
+    alert("Please Login to Continue")
+  }
+
+  goToCheckout() {
+    this.router.navigate(['purchasepage']);
+  }
+
+
+
+  
 
 
 
