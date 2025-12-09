@@ -3,10 +3,11 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { PurchaseService } from '../service/purchase-service';
 import { CartpageService } from '../service/cartpage-service';
+import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-orderdetails',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, Footer],
   templateUrl: './orderdetails.html',
   styleUrl: './orderdetails.scss',
 })

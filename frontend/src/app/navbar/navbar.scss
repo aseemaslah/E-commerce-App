@@ -1,0 +1,57 @@
+.cartcount{
+  position: relative;
+  top: -10px;
+  right: 10px;
+  font-size: 10px;
+  
+}
+
+.search-container {
+  position: relative;
+  display: inline-block;
+  /* Or block, depending on layout */
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  /* Other styling for the icon */
+}
+
+
+.input-group .form-control {
+  border-radius: 20px 0 0 20px;
+}
+
+.input-group .btn {
+  border-radius: 0 20px 20px 0;
+}
+
+
+.search-container {
+  flex-grow: 1;
+}
+
+@media (max-width: 576px) {
+  .search-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .navbar .btn,
+  .navbar .dropdown-toggle {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .navbar-brand {
+    font-size: 18px;
+  }
+}
+@media (max-width: 576px) {
+  .offcanvas {
+    width: 90% !important;
+  }
+}

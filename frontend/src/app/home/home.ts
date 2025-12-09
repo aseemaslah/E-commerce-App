@@ -14,47 +14,41 @@ import { CategorypageService } from '../service/categorypage-service';
 import { LoginPage } from '../service/login-page';
 import { AuthService } from '../service/auth-service';
 import { Navbar } from "../navbar/navbar";
+import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, Navbar],
+  imports: [FormsModule, ReactiveFormsModule, Navbar, Footer],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
 })
 export class Home implements OnInit {
-  loginForm!: FormGroup;
+  // loginForm!: FormGroup;
   categories: any[] = [];
   products: any[] = [];
-  cart: any[] = [];
-  searchTerm: string = '';
-  isLoggedIn: boolean = false;
+  // cart: any[] = [];
+  // searchTerm: string = '';
+  // isLoggedIn: boolean = false;
 
 
-  private fb = inject(FormBuilder);
+  // private fb = inject(FormBuilder);
   private router = inject(Router);
   private homeService = inject(HomeService);
   private cdr = inject(ChangeDetectorRef);
-  private cartpageService = inject(CartpageService);
-  private categoryPageService = inject(CategorypageService);
-  private loginPageService = inject(LoginPage);
-  private authService = inject(AuthService);
+  // private cartpageService = inject(CartpageService);
+  // private categoryPageService = inject(CategorypageService);
+  // private loginPageService = inject(LoginPage);
+  // private authService = inject(AuthService);
 
 
 
 
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      username: ['', [Validators.required,]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-      this.authService.isLoggedIn$.subscribe(status => {
-    this.isLoggedIn = status;
-  });
 
     this.fetchCategories();
-    this.getCart();
+    // this.getCart();
   }
 
   fetchCategories(): void {
@@ -70,78 +64,59 @@ export class Home implements OnInit {
     });
   }
 
-  onLogin(): void {
-    if (this.loginForm.valid) {
-      this.loginPageService.Login(this.loginForm.value).subscribe({
-        next: (res: any) => {
-        console.log('✅ Login Success:', res);
-
-        // Save token to local storage
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', JSON.stringify(res));
-        this.authService.setLogin(res.token);
-       
-      },
-    });
-      console.log('Form Data:', this.loginForm.value);
-    } else {
-      console.log('Form is invalid');
-      this.router.navigate(['/'])
-    }
-  }
 
   goToCategory(category: any): void {
     this.router.navigate(['/categorypage', category.name]);
   }
-  getCart(): void {
-    const userId = "user123";
-    this.cartpageService.getCart(userId).subscribe({
-      next: (res: any) => {
-        this.cart = res.cartItems;
-        console.log(this.cart);
-        this.cdr.markForCheck(); 
-      },
-      error: (err) => console.error('Failed to load cart', err)
-    });
-  }
+  // getCart(): void {
+  //   const userId = "user123";
+  //   this.cartpageService.getCart(userId).subscribe({
+  //     next: (res: any) => {
+  //       this.cart = res.cartItems;
+  //       console.log(this.cart);
+  //       this.cdr.markForCheck(); 
+  //     },
+  //     error: (err) => console.error('Failed to load cart', err)
+  //   });
+  // }
 
-  calculateTotal(): number {
-    return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity)), 0);
-  }
-
-
-  searchProducts() {
-    this.categoryPageService.searchProducts(this.searchTerm).subscribe(data => {
-      this.products = data;
-    });
-  }
+  // calculateTotal(): number {
+  //   return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity)), 0);
+  // }
 
 
-  increaseQty(item: any) {
-    const newQty = item.quantity + 1;
+  // searchProducts() {
+  //   this.categoryPageService.searchProducts(this.searchTerm).subscribe(data => {
+  //     this.products = data;
+  //   });
+  // }
 
-    this.cartpageService.updateQuantity(item.productId, newQty)
-      .subscribe(() => {
-        item.quantity = newQty;
-        this.getCart();
-      });
-  }
 
-  decreaseQty(item: any) {
-    if (item.quantity > 1) {
-      const newQty = item.quantity - 1;
+//   increaseQty(item: any) {
+//     const newQty = item.quantity + 1;
 
-      this.cartpageService.updateQuantity(item.productId, newQty)
-        .subscribe(() => {
-          item.quantity = newQty;
-          this.getCart();
-        });
-    }
-  }
-  onLogout() {
-  this.authService.logout();
-  this.router.navigate(['/home']);
-}
+//     this.cartpageService.updateQuantity(item.productId, newQty)
+//       .subscribe(() => {
+//         item.quantity = newQty;
+//         this.getCart();
+//       });
+//   }
+
+//   decreaseQty(item: any) {
+//     if (item.quantity > 1) {
+//       const newQty = item.quantity - 1;
+
+//       this.cartpageService.updateQuantity(item.productId, newQty)
+//         .subscribe(() => {
+//           item.quantity = newQty;
+//           this.getCart();
+//         });
+//     }
+//   }
+//   onLogout() {
+//   this.authService.logout();
+//   this.router.navigate(['/home']);
+// }
 
 
 }

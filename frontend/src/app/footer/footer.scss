@@ -1,0 +1,13 @@
+@media (max-width: 576px) {
+  footer .row>div {
+    text-align: center;
+  }
+
+  footer .d-flex.gap-3 {
+    justify-content: center;
+  }
+}
+
+footer h3 {
+  font-size: 20px;
+}

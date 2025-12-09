@@ -5,10 +5,11 @@ import { CategorypageService } from '../service/categorypage-service';
 import { CartpageService } from '../service/cartpage-service';
 import { CurrencyPipe, DecimalPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 import { Navbar } from "../navbar/navbar";
+import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-categorypage',
-  imports: [ReactiveFormsModule, RouterLink, CurrencyPipe, FormsModule, UpperCasePipe, Navbar],
+  imports: [ReactiveFormsModule,  CurrencyPipe, FormsModule, UpperCasePipe, Navbar, Footer],
   templateUrl: './categorypage.html',
   styleUrl: './categorypage.scss',
 })
