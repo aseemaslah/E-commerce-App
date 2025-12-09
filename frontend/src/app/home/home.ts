@@ -12,6 +12,7 @@ import { CartpageService } from '../service/cartpage-service';
 import { CurrencyPipe, SlicePipe } from '@angular/common';
 import { CategorypageService } from '../service/categorypage-service';
 import { LoginPage } from '../service/login-page';
+import { AuthService } from '../service/auth-service';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ export class Home implements OnInit {
   products: any[] = [];
   cart: any[] = [];
   searchTerm: string = '';
+  isLoggedIn: boolean = false;
 
 
   private fb = inject(FormBuilder);
@@ -35,6 +37,7 @@ export class Home implements OnInit {
   private cartpageService = inject(CartpageService);
   private categoryPageService = inject(CategorypageService);
   private loginPageService = inject(LoginPage);
+  private authService = inject(AuthService);
 
 
 
@@ -42,9 +45,12 @@ export class Home implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required,]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+      this.authService.isLoggedIn$.subscribe(status => {
+    this.isLoggedIn = status;
+  });
 
     this.fetchCategories();
     this.getCart();
@@ -65,11 +71,21 @@ export class Home implements OnInit {
 
   onLogin(): void {
     if (this.loginForm.valid) {
-      this.loginPageService.Login(this.loginForm.value).subscribe
+      this.loginPageService.Login(this.loginForm.value).subscribe({
+        next: (res: any) => {
+        console.log('✅ Login Success:', res);
 
+        // Save token to local storage
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res));
+        this.authService.setLogin(res.token);
+       
+      },
+    });
       console.log('Form Data:', this.loginForm.value);
     } else {
       console.log('Form is invalid');
+      this.router.navigate(['/'])
     }
   }
 
@@ -121,6 +137,10 @@ export class Home implements OnInit {
         });
     }
   }
+  onLogout() {
+  this.authService.logout();
+  this.router.navigate(['/home']);
+}
 
 
 }

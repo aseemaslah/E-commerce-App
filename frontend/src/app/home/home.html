@@ -14,10 +14,25 @@
         </button>
       </form>
       <div class="d-flex align-items-center">
+        @if (!isLoggedIn) {
         <button type="button" class="btn btn-light text-primary me-3 fw-semibold" data-bs-toggle="modal"
           data-bs-target="#myModal">
           Login
         </button>
+        } @else {
+        <div class="dropdown">
+          <a class="btn btn-primary text-white dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            My Account
+          </a>
+
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item d-flex justify-content-between fw-semibold" routerLink="/myaccount">Profile <i class="bi bi-person-fill"></i></a></li>
+            <li><a class="dropdown-item d-flex justify-content-between fw-semibold" routerLink="/myorder">My Orders <i class="bi bi-box-seam-fill"></i></a></li>
+            <li><a class="dropdown-item d-flex justify-content-between fw-semibold" (click)="onLogout()">Logout <i class="bi bi-box-arrow-right"></i></a></li>
+          </ul>
+        </div>
+        }
         <div class="modal fade" id="myModal" tabindex="-1">
           <div class="modal-dialog">
             <div class="modal-content border-0 shadow-lg">
@@ -28,14 +43,14 @@
               <div class="modal-body">
                 <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                   <div class="mb-3">
-                    <label for="email" class="form-label fw-semibold">E-mail</label>
-                    <input type="email" id="email" class="form-control" formControlName="email"
-                      placeholder="Enter your email" />
-                    @if (loginForm.get("email")?.invalid && loginForm.get("email")?.touched) {
-                    @if (loginForm.get("email")?.errors?.['required']) {
+                    <label for="username" class="form-label fw-semibold">E-mail</label>
+                    <input type="text" id="username" class="form-control" formControlName="username"
+                      placeholder="Enter your Username" />
+                    @if (loginForm.get("username")?.invalid && loginForm.get("username")?.touched) {
+                    @if (loginForm.get("username")?.errors?.['required']) {
                     <div class="text-danger small mt-1">Email is required.</div>
-                    } @else if (loginForm.get("email")?.errors?.['email']) {
-                    <div class="text-danger small mt-1">Enter a valid email.</div>
+                    } @else if (loginForm.get("username")?.errors?.['username']) {
+                    <div class="text-danger small mt-1">Enter a valid username.</div>
                     }}
                   </div>
 
@@ -50,7 +65,6 @@
                     <div class="text-danger small mt-1">Password is incorrect.</div>
                     }}
                   </div>
-
                   <button type="submit" class="btn btn-primary w-100">Login</button>
                 </form>
               </div>
@@ -58,6 +72,7 @@
                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -65,8 +80,8 @@
           <a class="dropdown-toggle text-white fw-bold text-decoration-none" href="#" role="button"
             data-bs-toggle="dropdown">More</a>
           <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-            <li><a class="dropdown-item" href="#">Help</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item d-flex justify-content-between fw-semibold" href="#">Help <i class="bi bi-info-circle-fill"></i></a></li>
+            <li><a class="dropdown-item d-flex justify-content-between fw-semibold" href="#">Settings<i class="bi bi-gear-fill"></i></a></li>
           </ul>
         </div>
 
@@ -114,12 +129,12 @@
             </div>
           </div>
         </div>
-      
+
         <button class="btn btn-outline-primary text-white fw-bold position-relative" data-bs-toggle="offcanvas"
           data-bs-target="#demo">
           <i class="bi bi-cart3 fs-5"><span class="badge rounded-pill bg-danger ms-1 cartcount">
-            {{cart.length}}
-          </span></i>
+              {{cart.length}}
+            </span></i>
         </button>
       </div>
     </div>

@@ -11,7 +11,10 @@ export class LoginPage {
 
   Login(data: any)
   {
-    return this.http.post('http://localhost:3000/users/login', data);
+    return this.http.post('https://dummyjson.com/user/login', {
+      username: data.username,      // map form email → username for dummyjson
+      password: data.password,
+      expiresInMins: 30
+    });
   }
-  
 }
