@@ -62,14 +62,13 @@ export class Categorypage implements OnInit {
       next: (res) => {
         console.log('Product added to cart', res);
         product.added = true;
+        this.getCart();
         this.cdr.markForCheck();
       },
       error: (err) => console.error('Failed to add product to cart', err),
       complete: () => console.log('Add to cart request completed')
     });
-    this.getCart();
     alert("Product Added Succesfully")
-
   }
 
   getCart(): void {
@@ -86,6 +85,8 @@ export class Categorypage implements OnInit {
       error: (err) => console.error('Failed to load cart', err)
     });
   }
+
+  
   goToProduct(product: any): void {
     this.router.navigate(['/product', product.productId]);
     console.log("success")

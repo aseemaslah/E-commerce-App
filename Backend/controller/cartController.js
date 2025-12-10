@@ -17,7 +17,7 @@ const addToCart = async (req, res) => {
             name,
             price,
             image,
-            quantity: 0,
+            quantity: 1,
             userId: "user123",
             discount
         });

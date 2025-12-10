@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, inject } from '@angular/core';
 import { CategorypageService } from '../service/categorypage-service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CurrencyPipe, DecimalPipe, SlicePipe, UpperCasePipe } from '@angular/common';
+import { ActivatedRoute, } from '@angular/router';
+import { CurrencyPipe, } from '@angular/common';
 import { CartpageService } from '../service/cartpage-service';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {  FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Navbar } from "../navbar/navbar";
 import { Footer } from "../footer/footer";
 
@@ -41,34 +41,55 @@ export class ProductDetailpage {
     this.categoryService.getProductById(id).subscribe({
       next: res => {
         this.product = res;
+        if (this.cart && this.cart.length > 0) {
+          this.product.added = this.cart.some(cartItem => cartItem.productId === this.product.id);
+        }
         this.cdr.markForCheck();
       },
       error: err => console.error(err)
     });
   }
 
-  getCart(): void {
+  addToCart(product: any): void {
+    this.cartpageService.addToCart({
+      productId: product.id,
+      name: product.title,
+      price: product.price,
+      image: product.thumbnail,
+      quantity: 1,
+      userId: 'user123',
+      discount: product.discountPercentage || 0,
+      added: false
+    }).subscribe({
+      next: res => {
+        console.log('Product added to cart', res);
+        product.added = true;
+        this.getCart();
+        this.cdr.markForCheck();
+        alert('Product Added Successfully');
+      },
+      error: err => console.error('Failed to add product to cart', err)
+    });
+  }
+    getCart(): void {
     const userId = "user123";
     this.cartpageService.getCart(userId).subscribe({
       next: (res: any) => {
         this.cart = res.cartItems;
+        this.products.forEach(product => {
+          product.added = this.cart.some(c => c.productId === product.productId);
+        });
+        if (this.product) {
+          this.product.added = this.cart.some(cartItem => cartItem.productId === this.product.id);
+        }
         console.log(this.cart);
         this.cdr.markForCheck();
       },
       error: (err) => console.error('Failed to load cart', err)
     });
   }
-  addToCart(product: any): void {
-    this.cartpageService.addToCart(product).subscribe({
-      next: (res) => {
-        console.log('Product added to cart', res);
-      },
-      error: (err) => console.error('Failed to add product to cart', err),
-      complete: () => console.log('Add to cart request completed')
-    });
-    alert("Product Added Succesfully");
-    this.getCart();
-  }
+
+
 
 }
 
