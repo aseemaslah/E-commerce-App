@@ -9,7 +9,7 @@ import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-categorypage',
-  imports: [ReactiveFormsModule,  CurrencyPipe, FormsModule, UpperCasePipe, Navbar, Footer],
+  imports: [ReactiveFormsModule, CurrencyPipe, FormsModule, UpperCasePipe, Navbar, Footer],
   templateUrl: './categorypage.html',
   styleUrl: './categorypage.scss',
 })
@@ -46,7 +46,9 @@ export class Categorypage implements OnInit {
           discount: p.discountPercentage,
           brand: p.brand,
           rating: p.rating,
+          added: false
         }));
+        this.getCart();
         this.cdr.markForCheck();
       },
       error: (err) => console.error('Failed to load products', err),
@@ -59,19 +61,25 @@ export class Categorypage implements OnInit {
     this.cartpageService.addToCart(product).subscribe({
       next: (res) => {
         console.log('Product added to cart', res);
+        product.added = true;
+        this.cdr.markForCheck();
       },
       error: (err) => console.error('Failed to add product to cart', err),
       complete: () => console.log('Add to cart request completed')
     });
+    this.getCart();
     alert("Product Added Succesfully")
-     this.getCart();
+
   }
-  
+
   getCart(): void {
     const userId = "user123";
     this.cartpageService.getCart(userId).subscribe({
       next: (res: any) => {
         this.cart = res.cartItems;
+        this.products.forEach(p => {
+          p.added = this.cart.some(c => c.productId === p.productId);
+        });
         console.log(this.cart);
         this.cdr.markForCheck();
       },
@@ -82,4 +90,5 @@ export class Categorypage implements OnInit {
     this.router.navigate(['/product', product.productId]);
     console.log("success")
   }
+
 }

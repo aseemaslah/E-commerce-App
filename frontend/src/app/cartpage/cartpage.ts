@@ -15,17 +15,17 @@ import { AuthService } from '../service/auth-service';
 })
 export class Cartpage implements OnInit {
   cart: any[] = [];
-   isLoggedIn: boolean = false;
+  isLoggedIn: boolean = false;
 
   private cartpageService = inject(CartpageService);
   private cdr = inject(ChangeDetectorRef);
-  private authService =inject(AuthService);
+  private authService = inject(AuthService);
   private router = inject(Router)
 
 
 
   ngOnInit(): void {
-        this.authService.isLoggedIn$.subscribe(status => {
+    this.authService.isLoggedIn$.subscribe(status => {
       this.isLoggedIn = status;
     });
     this.getCart()
@@ -80,7 +80,7 @@ export class Cartpage implements OnInit {
     }
   }
 
-  LoginMessage(){
+  LoginMessage() {
     alert("Please Login to Continue")
   }
 
@@ -90,7 +90,7 @@ export class Cartpage implements OnInit {
 
 
 
-  
+
 
 
 
