@@ -1,54 +1,66 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { RouterLink } from "@angular/router";
-import { PurchaseService } from '../service/purchase-service';
-import { CartpageService } from '../service/cartpage-service';
+import { Navbar } from "../navbar/navbar";
 import { Footer } from "../footer/footer";
+
+// Define the order data interface
+interface OrderData {
+  billingDetails: {
+    name: string;
+    houseNo: string;
+    locality: string;
+    landmark: string;
+    pincode: string;
+    phone: string;
+  };
+  items: any[];
+  totalAmount: number;
+  orderDate: string;
+  orderId: string;
+}
 
 @Component({
   selector: 'app-orderdetails',
-  imports: [CommonModule, RouterLink, Footer],
+  imports: [CommonModule,Footer , RouterLink
+  ],
   templateUrl: './orderdetails.html',
-  styleUrl: './orderdetails.scss',
+  styleUrl: './orderdetails.scss'
 })
-export class Orderdetails {
-
-  billing: any[] = [];
-  cart: any[] = [];
-  private purchaseService = inject(PurchaseService);
-  private cartpageService = inject(CartpageService);
-  private cdr = inject(ChangeDetectorRef);
+export class Orderdetails implements OnInit {
+  // Option 1: Initialize with undefined and use proper type
+  orderData: OrderData | undefined;
+  
+  // Option 2: Use definite assignment assertion (!)
+  // orderData!: OrderData;
+  
+  private router = inject(Router);
 
   ngOnInit(): void {
-    this.getBillData();
-    this.getCart();
+    // Access navigation state
+    const navigation = this.router.getCurrentNavigation();
+    
+    if (navigation?.extras?.state) {
+      this.orderData = navigation.extras.state['order'];
+    } else {
+      // Fallback: Check history.state or localStorage
+      this.orderData = history.state['order'];
+      
+      if (!this.orderData) {
+        const storedOrder = localStorage.getItem('currentOrder');
+        if (storedOrder) {
+          this.orderData = JSON.parse(storedOrder);
+        }
+      }
+    }
+
+    // If no order data found, redirect back
+    if (!this.orderData) {
+      this.router.navigate(['/']);
+    }
   }
 
-  getBillData(): void {
-
-    this.purchaseService.getBillData().subscribe({
-      next: (res: any) => {
-        this.billing = res.billingInfo;
-        console.log(this.billing);
-        this.cdr.markForCheck();
-      },
-      error: (err) => console.error('Failed to load billing details', err)
-    });
-  }
-  getCart(): void {
-    const userId = "user123";
-    this.cartpageService.getCart(userId).subscribe({
-      next: (res: any) => {
-        this.cart = res.cartItems;
-        console.log(this.cart);
-        this.cdr.markForCheck();
-      },
-      error: (err) => console.error('Failed to load cart', err)
-    });
-  }
-
-  calculateTotal(): number {
-    return this.cart.reduce((total, product) => total + ((product.price * product.quantity)), 0);
+  printOrder(): void {
+    window.print();
   }
 }
-

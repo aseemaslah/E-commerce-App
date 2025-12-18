@@ -18,40 +18,120 @@
   </nav>
 </header>
 
+
 <div class="container my-5">
-  <div class="row g-4">
-    <div class="col-lg-7">
-      <div class="card shadow-sm p-4 bg-light">
-        <h3 class="fw-bold mb-4 text-primary">Order Summary</h3>
-        @for ( carts of cart; track carts.id){
-        <div class="d-flex align-items-center border-bottom pb-3 mb-3">
-          <img src="{{carts.image}}" alt="product" class="img-fluid rounded me-3 border"
-            style="width: 50px; height: 50px;">
-          <div class="flex-grow-1">
-            <h5 class="mb-1">{{carts.name}}</h5>
-            <h6 class="text-primary d-flex justify-content-end">{{carts.quantity}} .Nos</h6>
-          </div>
-          <h6 class="text-primary fw-semibold"></h6>
-        </div>}
-        <div class="d-flex justify-content-between mt-3 border-top pt-3">
-          <h5>Total Amount:</h5>
-          <h5 class="fw-bold text-primary">{{calculateTotal() | currency }}</h5>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-primary " routerLink="/home">Back To Shopping</button>
-        </div>
+  <!-- Success Message -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-lg-8">
+      <div class="alert alert-success text-center py-4 shadow-sm border-0" role="alert">
+       
+        <h1 class="alert-heading fw-bold mb-2">Order Placed Successfully!</h1>
+        <p class="mb-0 fs-5">Thank you for your purchase</p>
       </div>
     </div>
-    <div class="col-lg-5">
-      @for (bills of billing; track bills.id) {
-      <div class="card shadow-sm p-4 bg-light mb-4" style="position: sticky; top: 100px;">
-        <h4 class="fw-bold text-primary mb-3">Shipping Details</h4>
-        <p class="mb-1"><strong>Name:</strong>{{bills.name}}</p>
-        <p class="mb-1"><strong>locality:</strong>{{bills.locality}}</p>
-        <p class="mb-1"><strong>Landmark:</strong>{{bills.landamark}}</p>
-        <p class="mb-1"><strong>Pincode:</strong>{{bills.pincode}}</p>
-        <p class="mb-1"><strong>Phone:</strong>{{bills.phone}}</p>
-      </div>}
+  </div>
+
+  <!-- Order Details Card -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-sm mb-4 border-0">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0"><i class="bi bi-receipt me-2"></i>Order Details</h5>
+        </div>
+        <div class="card-body bg-light">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <p class="mb-1 text-muted small">Order ID</p>
+              <p class="fw-bold mb-0">{{ orderData?.orderId }}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="mb-1 text-muted small">Order Date</p>
+              <p class="fw-bold mb-0">{{ orderData?.orderDate | date:'medium' }}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="mb-1 text-muted small">Total Amount</p>
+              <p class="fw-bold text-success mb-0 fs-5">${{ orderData?.totalAmount | number:'1.2-2' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Billing Address Card -->
+      <div class="card shadow-sm mb-4 border-0">
+        <div class="card-header bg-white border-bottom">
+          <h5 class="mb-0"><i class="bi bi-geo-alt me-2 text-primary"></i>Billing Address</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <p class="mb-1 text-muted small">Name</p>
+              <p class="fw-semibold mb-0">{{ orderData?.billingDetails?.name }}</p>
+            </div>
+            <div class="col-md-6 mb-3">
+              <p class="mb-1 text-muted small">Phone</p>
+              <p class="fw-semibold mb-0">{{ orderData?.billingDetails?.phone }}</p>
+            </div>
+            <div class="col-12">
+              <p class="mb-1 text-muted small">Address</p>
+              <p class="mb-0">
+                {{ orderData?.billingDetails?.houseNo }}, {{ orderData?.billingDetails?.locality }}<br>
+                {{ orderData?.billingDetails?.landmark }}<br>
+                <span class="fw-semibold">Pincode:</span> {{ orderData?.billingDetails?.pincode }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Items Card -->
+      <div class="card shadow-sm mb-4 border-0">
+        <div class="card-header bg-white border-bottom">
+          <h5 class="mb-0"><i class="bi bi-bag-check me-2 text-primary"></i>Ordered Items</h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-12" *ngFor="let item of orderData?.items">
+              <div class="card border">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-md-2 col-3 text-center">
+                      <img [src]="item.image" [alt]="item.name" 
+                           class="img-fluid rounded" 
+                           style="max-height: 100px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-10 col-9">
+                      <h6 class="mb-2 fw-bold">{{ item.name }}</h6>
+                      <div class="row g-2">
+                        <div class="col-sm-4">
+                          <small class="text-muted">Quantity:</small>
+                          <span class="ms-1 fw-semibold">{{ item.quantity }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                          <small class="text-muted">Price:</small>
+                          <span class="ms-1 fw-semibold">${{ item.price | number:'1.2-2' }}</span>
+                        </div>
+                        <div class="col-sm-4">
+                          <small class="text-muted">Subtotal:</small>
+                          <span class="ms-1 fw-bold text-success">
+                            ${{ (item.price * item.quantity) | number:'1.2-2' }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex gap-3 justify-content-center mb-5">
+        <button routerLink="/home" class="btn btn-primary btn-lg px-4">
+          <i class="bi bi-arrow-left me-2"></i>Continue Shopping
+        </button>
+      </div>
     </div>
   </div>
 </div>

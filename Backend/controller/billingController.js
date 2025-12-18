@@ -34,4 +34,19 @@ const getBillingInfo = async (req, res) => {
     }
 };
 
-module.exports = { addBillingInfo, getBillingInfo };
+
+const clearBillingInfo = async (req, res) => {
+    try {
+        await Billing.deleteMany({});
+        res.status(200).json({ message: 'Billing information cleared successfully' });
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports = {
+    addBillingInfo,
+    getBillingInfo,
+    clearBillingInfo
+ };

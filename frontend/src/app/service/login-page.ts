@@ -17,4 +17,8 @@ export class LoginPage {
       expiresInMins: 30
     });
   }
+
+  UserDetails(){
+    return this.http.get('https://dummyjson.com/user/1');
+  }
 }

@@ -53,13 +53,39 @@ export class Purchasepage {
     return this.cart.reduce((total, product) => total + ((product.price * product.quantity)), 0);
   }
 
-  onSubmit() {
-    if (this.billingForm.valid)
-      this.purhcaseService.onSubmit(this.billingForm.value).subscribe({
-        next: (res) => console.log('Saved:', res),
-        error: (err) => console.error(err),
+    onSubmit() {
+    // Check if form is valid
+    if (this.billingForm.valid) {
+      // Prepare order data
+      const orderData = {
+        billingDetails: this.billingForm.value,
+        items: this.cart,
+        totalAmount: this.calculateTotal(),
+        orderDate: new Date().toISOString(),
+        orderId: this.generateOrderId()
+      };
+
+      // Save order data to localStorage or service
+      localStorage.setItem('currentOrder', JSON.stringify(orderData));
+
+      // Navigate to order details page
+      this.router.navigate(['/orderdetails'], {
+        state: { order: orderData }
       });
 
-    this.router.navigate(["/orderdetails"])
+      // Clear cart after successful order
+      localStorage.removeItem('cart');
+    } else {
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.billingForm.controls).forEach(key => {
+        this.billingForm.get(key)?.markAsTouched();
+      });
+      
+      // Optional: Show error message
+      alert('Please fill all required fields correctly');
+    }
+  }
+    generateOrderId(): string {
+    return 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
   }
 }

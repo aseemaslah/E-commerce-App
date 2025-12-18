@@ -7,17 +7,17 @@
 
     <div class="row g-4">
 
-      <!-- Left Profile Card -->
       <div class="col-lg-4">
+      @for (user of users; track user.id) {
         <div class="card shadow-sm border-0 p-4 text-center profile-card">
-          <img src="https://via.placeholder.com/120" class="rounded-circle mb-3 mx-auto" alt="User">
-          <h5 class="mb-1">John Doe</h5>
-          <p class="text-muted mb-3">john.doe@example.com</p>
+          <img src="{{user.image}}" class="rounded-circle mb-3 mx-auto" alt="User">
+          <h5 class="mb-1">{{user.firstName}} {{user.lastName}}</h5>
+          <p class="text-muted mb-3">{{user.email}}</p>
+          <p>{{user.phone}}</p>      
           <span class="badge bg-primary px-3 py-2">Active Member</span>
-        </div>
+        </div>}
       </div>
 
-      <!-- Right Tabs -->
       <div class="col-lg-8">
         <div class="card shadow-sm border-0">
 
@@ -50,36 +50,37 @@
             <!-- Account Details -->
             <div class="tab-pane fade show active" id="details">
               <form>
+                @for (user of users; track user.id) {
                 <div class="row g-3">
 
                   <div class="col-md-6">
                     <label class="form-label">First Name</label>
-                    <input type="text" class="form-control" placeholder="John">
+                    <input type="text" class="form-control" placeholder="{{user.firstName}}">
                   </div>
 
                   <div class="col-md-6">
                     <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" placeholder="Doe">
+                    <input type="text" class="form-control" placeholder="{{user.lastName}}">
                   </div>
 
                   <div class="col-md-6">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control" placeholder="john.doe@example.com">
+                    <input type="email" class="form-control" placeholder="{{user.email}}">
                   </div>
 
                   <div class="col-md-6">
                     <label class="form-label">Phone</label>
-                    <input type="text" class="form-control" placeholder="9037432518">
+                    <input type="text" class="form-control" placeholder="{{user.phone}}">
                   </div>
 
                   <div class="col-12">
                     <label class="form-label">Address</label>
-                    <textarea class="form-control" rows="2" placeholder="Calicut, Kerala"></textarea>
+                    <textarea class="form-control" rows="2" placeholder="{{user.address}}"></textarea>
                   </div>
 
                 </div>
 
-                <button class="btn btn-primary mt-4">Save Changes</button>
+                <button class="btn btn-primary mt-4">Save Changes</button>}
               </form>
             </div>
 
