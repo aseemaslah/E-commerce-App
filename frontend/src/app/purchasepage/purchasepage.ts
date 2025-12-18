@@ -54,10 +54,11 @@ export class Purchasepage {
   }
 
   onSubmit() {
-    this.purhcaseService.onSubmit(this.billingForm.value).subscribe({
-      next: (res) => console.log('Saved:', res),
-      error: (err) => console.error(err),
-    });
+    if (this.billingForm.valid)
+      this.purhcaseService.onSubmit(this.billingForm.value).subscribe({
+        next: (res) => console.log('Saved:', res),
+        error: (err) => console.error(err),
+      });
 
     this.router.navigate(["/orderdetails"])
   }

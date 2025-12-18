@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CartpageService } from '../service/cartpage-service';
-import { CurrencyPipe, DecimalPipe, SlicePipe } from '@angular/common';
+import { CurrencyPipe, SlicePipe } from '@angular/common';
 import { Navbar } from "../navbar/navbar";
 import { Footer } from "../footer/footer";
 import { AuthService } from '../service/auth-service';
@@ -48,7 +48,7 @@ export class Cartpage implements OnInit {
     this.cartpageService.deleteCart(productId).subscribe({
       next: (res: any) => {
         console.log('Item deleted from cart', res);
-        this.getCart(); // Refresh the cart after deletion
+        this.getCart();
       },
       error: (err) => console.error('Failed to delete item from cart', err)
     });

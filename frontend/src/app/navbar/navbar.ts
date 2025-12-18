@@ -102,7 +102,6 @@ export class Navbar {
         next: (res: any) => {
           console.log('✅ Login Success:', res);
 
-          // Save token to local storage
           localStorage.setItem('token', res.token);
           localStorage.setItem('user', JSON.stringify(res));
           this.authService.setLogin(res.token);
