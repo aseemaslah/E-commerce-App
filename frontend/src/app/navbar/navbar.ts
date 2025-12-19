@@ -38,6 +38,7 @@ export class Navbar {
       this.isLoggedIn = status;
     });
     this.getCart();
+    
   }
 
   searchProducts() {

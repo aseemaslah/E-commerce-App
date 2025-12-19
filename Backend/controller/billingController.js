@@ -2,8 +2,15 @@ const Billing = require("../models/billingModel");
 
 const addBillingInfo = async (req, res) => {
     try {
-        const { name, locality, pincode, houseNo, landmark, phone } = req.body;
-        if ( !name || !locality || !pincode || !houseNo || !landmark || !phone) {
+        const { billingDetails } = req.body;
+
+        if (!billingDetails) {
+            return res.status(400).json({ message: 'Billing details missing' });
+        }
+
+        const { name, locality, pincode, houseNo, landmark, phone } = billingDetails;
+
+        if (!name || !locality || !pincode || !houseNo || !landmark || !phone) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
@@ -15,10 +22,15 @@ const addBillingInfo = async (req, res) => {
             landmark,
             phone
         });
+
         await billingInfo.save();
-        res.status(201).json({ message: 'Billing information added successfully', billingInfo });
-    }
-    catch (error) {
+
+        res.status(201).json({
+            message: 'Billing information added successfully',
+            billingInfo
+        });
+
+    } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };

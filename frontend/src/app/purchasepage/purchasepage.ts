@@ -74,6 +74,15 @@ export class Purchasepage {
         state: { order: orderData }
       });
 
+      this.purhcaseService.onSubmit(orderData).subscribe({
+        next: (res) => {
+          console.log('Order saved successfully:', res);
+        },
+        error: (err) => {
+          console.error('Failed to save order:', err);
+        }
+      });
+
       // Clear cart after successful order
       this.cartpageService.clearCart('user123').subscribe({
         next: () => console.log('Cart cleared successfully'),
@@ -85,7 +94,6 @@ export class Purchasepage {
         this.billingForm.get(key)?.markAsTouched();
       });
       
-      // Optional: Show error message
       alert('Please fill all required fields correctly');
     }
   }
