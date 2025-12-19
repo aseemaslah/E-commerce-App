@@ -67,6 +67,7 @@ export class Purchasepage {
 
       // Save order data to localStorage or service
       localStorage.setItem('currentOrder', JSON.stringify(orderData));
+      console.log('Order Data:', orderData);
 
       // Navigate to order details page
       this.router.navigate(['/orderdetails'], {
@@ -74,7 +75,10 @@ export class Purchasepage {
       });
 
       // Clear cart after successful order
-      localStorage.removeItem('cart');
+      this.cartpageService.clearCart('user123').subscribe({
+        next: () => console.log('Cart cleared successfully'),
+        error: (err) => console.error('Failed to clear cart', err)
+      });
     } else {
       // Mark all fields as touched to show validation errors
       Object.keys(this.billingForm.controls).forEach(key => {

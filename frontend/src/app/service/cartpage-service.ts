@@ -25,4 +25,8 @@ export class CartpageService {
       quantity
     });
   }
+
+  clearCart(userId: string): Observable<any> {
+    return this.http.delete(`http://localhost:3000/carts/clear/${userId}`);
+  }
 }
