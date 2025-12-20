@@ -33,8 +33,7 @@ export class CartpageService {
     return this.http.delete<any[]>(`http://localhost:3000/carts/clear/${userId}`);
   }
 
-  setCart(items: any[]) {
+    setCart(items: any[]) {
   this.cartItems$.next(items);
 }
-
 }
