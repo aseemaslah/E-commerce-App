@@ -66,6 +66,7 @@ export class Navbar {
         this.cart = res.cartItems;
         console.log(this.cart);
         this.cdr.markForCheck();
+        this.getCart();
       },
       error: (err) => console.error('Failed to load cart', err)
     });

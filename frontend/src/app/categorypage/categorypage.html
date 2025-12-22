@@ -23,11 +23,11 @@
           </div>
           @if (!p.added) {
             <div class="my-3 mx-3">
-          <button class="btn btn-primary w-100 " (click)="addToCart(p)">Add to Cart</button>
+          <button class="btn btn-primary w-100 " (click)="addToCart(p)"><i class="bi bi-cart-plus"></i> Add to Cart</button>
           </div>
           } @else {
             <div class="my-3 mx-3">
-          <button class="btn btn-success w-100" disabled>Already Added</button>
+          <button class="btn btn-success w-100" disabled><i class="bi bi-cart-check"></i> Already Added</button>
           </div>
           }
         </div>
