@@ -92,7 +92,14 @@ export class Navbar {
           this.getCart();
         });
     }
+    if (item.quantity === 1) {
+      this.cartpageService. deleteCart(item.productId)
+        .subscribe(() => {
+          this.cart = this.cart.filter(c => c.productId !== item.productId);
+          this.getCart();
+        });
   }
+}
 
   calculateTotal(): number {
     return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity)), 0);
