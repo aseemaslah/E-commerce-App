@@ -17,6 +17,7 @@ export class ProductDetailpage {
   product: any;
   cart: any[] = [];
 
+
   private route = inject(ActivatedRoute);
   private categoryService = inject(CategorypageService);
   private cdr = inject(ChangeDetectorRef);
