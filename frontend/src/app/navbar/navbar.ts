@@ -115,7 +115,7 @@ export class Navbar {
   }
 
   searchProducts() {
-    if (this.searchTerm.trim() !== '') {
+    if (this.searchTerm.trim() !== '    ') {
       this.categoryPageService.searchProducts(this.searchTerm).subscribe({
         next: (res: any) => {
           this.products = res;
