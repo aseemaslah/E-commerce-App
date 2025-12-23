@@ -28,18 +28,16 @@ export class Cartpage implements OnInit {
     this.authService.isLoggedIn$.subscribe(status => {
       this.isLoggedIn = status;
     });
-    this.getCart()
+    this.cartpageService.cartItems$.subscribe(items => {
+      this.cart = items;
+      this.cdr.markForCheck();
+    });
+    this.getCart();
   }
 
   getCart(): void {
     const userId = "user123";
     this.cartpageService.getCart(userId).subscribe({
-      next: (res: any) => {
-        this.cart = res.cartItems;
-
-        console.log(this.cart);
-        this.cdr.markForCheck();
-      },
       error: (err) => console.error('Failed to load cart', err)
     });
   }
@@ -85,7 +83,11 @@ export class Cartpage implements OnInit {
   }
 
   goToCheckout() {
-    this.router.navigate(['purchasepage']);
+    if (this.cart.length === 0) {
+      alert("Your cart is empty.");
+    } else {
+      this.router.navigate(['purchasepage']);
+    }
   }
 
 

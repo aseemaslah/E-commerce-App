@@ -16,7 +16,11 @@ export class CartpageService {
   }
 
   getCart(userId: string): Observable<any> {
-    return this.http.get<any[]>(`http://localhost:3000/carts/${userId}`);
+    const cart$ = this.http.get<any[]>(`http://localhost:3000/carts/${userId}`);
+    cart$.subscribe((cart: any) => {
+      this.cartItems$.next(cart.cartItems);
+    });
+    return cart$;
   }
   deleteCart(productId: string): Observable<any> {
     return this.http.delete<any[]>(`http://localhost:3000/carts/${productId}`);

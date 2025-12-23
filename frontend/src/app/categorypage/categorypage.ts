@@ -27,12 +27,18 @@ export class Categorypage implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
+    this.cartpageService.cartItems$.subscribe(cartItems => {
+      this.cart = cartItems;
+      this.products.forEach(p => {
+        p.added = this.cart.some(c => c.productId === p.productId);
+      });
+      this.cdr.markForCheck();
+    });
 
     this.route.params.subscribe((params: Params) => {
       this.category = params['category'];
       this.fetchProducts(this.category);
     });
-    this.getCart();
   }
 
   fetchProducts(category: string): void {
@@ -81,7 +87,6 @@ export class Categorypage implements OnInit {
         });
         console.log(this.cart);
         this.cdr.markForCheck();
-        this.fetchProducts(this.category);
       },
       error: (err) => console.error('Failed to load cart', err)
     });

@@ -37,37 +37,17 @@ export class Navbar {
     this.authService.isLoggedIn$.subscribe(status => {
       this.isLoggedIn = status;
     });
+    this.cartpageService.cartItems$.subscribe(items => {
+      this.cart = items;
+      this.cdr.markForCheck();
+    });
     this.getCart();
     
-  }
-
-  searchProducts() {
-    this.categoryPageService.searchProducts(this.searchTerm).subscribe({
-      next: (res: any) => {
-        this.products = res.products.map((p: any) => ({
-          productId: p.id,
-          name: p.title,
-          price: p.price,
-          image: p.thumbnail,
-          discount: p.discountPercentage,
-          brand: p.brand,
-          rating: p.rating,
-        }));
-        this.cdr.markForCheck();
-      },
-      error: (err) => console.error('Search error:', err),
-    });
   }
 
   getCart(): void {
     const userId = "user123";
     this.cartpageService.getCart(userId).subscribe({
-      next: (res: any) => {
-        this.cart = res.cartItems;
-        console.log(this.cart);
-        this.cdr.markForCheck();
-        this.getCart();
-      },
       error: (err) => console.error('Failed to load cart', err)
     });
   }
@@ -91,15 +71,13 @@ export class Navbar {
           item.quantity = newQty;
           this.getCart();
         });
-    }
-    if (item.quantity === 1) {
-      this.cartpageService. deleteCart(item.productId)
+    } else if (item.quantity === 1) {
+      this.cartpageService.deleteCart(item.productId)
         .subscribe(() => {
-          this.cart = this.cart.filter(c => c.productId !== item.productId);
           this.getCart();
         });
+    }
   }
-}
 
   calculateTotal(): number {
     return this.cart.reduce((total, carts) => total + ((carts.price * carts.quantity)), 0);
@@ -128,8 +106,23 @@ export class Navbar {
     this.router.navigate(['/home']);
   }
 
-    goToCheckout() {
-    this.router.navigate(['purchasepage']);
+  goToCheckout() {
+    if (this.cart.length === 0) {
+      alert("Your cart is empty.");
+    } else {
+      this.router.navigate(['purchasepage']);
+    }
+  }
+
+  searchProducts() {
+    if (this.searchTerm.trim() !== '') {
+      this.categoryPageService.searchProducts(this.searchTerm).subscribe({
+        next: (res: any) => {
+          this.products = res;
+          this.router.navigate(['/categorypage'], { queryParams: { search: this.searchTerm } });
+        }
+      });
+    }
   }
 
 }
