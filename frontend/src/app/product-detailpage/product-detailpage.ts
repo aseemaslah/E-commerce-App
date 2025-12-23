@@ -75,6 +75,11 @@ export class ProductDetailpage {
       }
     });
   }
+
+  setMainImage(imageUrl: string): void {
+    this.product.thumbnail = imageUrl;
+    this.cdr.markForCheck();
+  }
 }
 
 
