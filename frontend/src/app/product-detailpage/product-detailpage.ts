@@ -3,7 +3,7 @@ import { CategorypageService } from '../service/categorypage-service';
 import { ActivatedRoute, } from '@angular/router';
 import { CurrencyPipe, } from '@angular/common';
 import { CartpageService } from '../service/cartpage-service';
-import {  FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Navbar } from "../navbar/navbar";
 import { Footer } from "../footer/footer";
 
@@ -34,6 +34,7 @@ export class ProductDetailpage {
       }
     });
     this.getCart();
+    
   }
 
 
@@ -71,7 +72,7 @@ export class ProductDetailpage {
       error: err => console.error('Failed to add product to cart', err)
     });
   }
-    getCart(): void {
+  getCart(): void {
     const userId = "user123";
     this.cartpageService.getCart(userId).subscribe({
       next: (res: any) => {
@@ -83,7 +84,9 @@ export class ProductDetailpage {
           this.product.added = this.cart.some(cartItem => cartItem.productId === this.product.id);
         }
         console.log(this.cart);
+        this.products = this.cart;
         this.cdr.markForCheck();
+        
       },
       error: (err) => console.error('Failed to load cart', err)
     });

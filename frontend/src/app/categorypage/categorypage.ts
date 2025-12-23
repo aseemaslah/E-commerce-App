@@ -81,6 +81,7 @@ export class Categorypage implements OnInit {
         });
         console.log(this.cart);
         this.cdr.markForCheck();
+        this.fetchProducts(this.category);
       },
       error: (err) => console.error('Failed to load cart', err)
     });

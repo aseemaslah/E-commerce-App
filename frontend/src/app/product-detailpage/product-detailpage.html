@@ -1,90 +1,131 @@
 <app-navbar></app-navbar>
 
-<section class="py-5">
+<section class="py-5 bg-light">
   <div class="container">
     @if (product) {
-    <div class="product-wrapper shadow-sm">
-      <div class="row g-4">
-        <div class="col-lg-6 text-center">
-          <img [src]="product.thumbnail" class="product-img mb-3 img-fluid">
-          @if (product.images?.length > 0) {
-          <div class="thumbs d-flex gap-2 justify-content-center">
-            @for (img of product.images; track img) {
-            <img [src]="img" style="width:80px; height:80px; object-fit:cover; border-radius:6px;">
+    <div class="card product-card shadow-sm border-0">
+      <div class="card-body p-4 p-lg-5">
+
+        <!-- TOP SECTION -->
+        <div class="row g-5 align-items-start">
+
+          <!-- LEFT: IMAGES -->
+          <div class="col-lg-6">
+            <div class="product-image-wrapper text-center">
+              <img
+                [src]="product.thumbnail"
+                class="img-fluid main-product-img mb-3"
+              />
+
+              @if (product.images?.length > 0) {
+              <div class="thumbs d-flex gap-2 justify-content-center flex-wrap">
+                @for (img of product.images; track img) {
+                <img
+                  [src]="img"
+                  class="thumb-img"
+                />
+                }
+              </div>
+              }
+            </div>
+          </div>
+
+          <!-- RIGHT: DETAILS -->
+          <div class="col-lg-6">
+            <h2 class="fw-bold mb-2">{{ product.title }}</h2>
+
+            <div class="d-flex align-items-center mb-3">
+              <i class="bi bi-star-fill text-warning"></i>
+              <span class="text-muted ms-2">({{ product.rating }})</span>
+            </div>
+
+            <div class="price-box mb-3">
+              <span class="price">{{ product.price | currency }}</span>
+
+              @if (product.discountPercentage) {
+              <span class="old-price ms-2">
+                {{ product.price + (product.price * product.discountPercentage / 100) | currency }}
+              </span>
+              }
+            </div>
+
+            <span class="badge bg-success mb-3">{{ product.brand }}</span>
+
+            <p class="text-muted mb-4">{{ product.description }}</p>
+
+            <!-- CART BUTTON -->
+            <div class="mb-4">
+              @if (!product.added) {
+              <button
+                class="btn btn-primary btn-lg w-100"
+                (click)="addToCart(product)"
+              >
+                Add to Cart
+              </button>
+              } @else {
+              <button class="btn btn-success btn-lg w-100" disabled>
+                Already Added
+              </button>
+              }
+            </div>
+
+            <!-- FEATURES -->
+            <div class="row g-3 text-center">
+              <div class="col-4">
+                <div class="feature-box">
+                  <i class="bi bi-box fs-4"></i>
+                  <p class="mb-0">{{ product.category }}</p>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="feature-box">
+                  <i class="bi bi-percent fs-4"></i>
+                  <p class="mb-0">{{ product.discountPercentage }}% off</p>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="feature-box">
+                  <i class="bi bi-bootstrap-reboot fs-4"></i>
+                  <p class="mb-0">{{ product.returnPolicy }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM SECTION -->
+        <hr class="my-5" />
+
+        <div class="row g-5">
+          <div class="col-md-6">
+            <h5 class="fw-bold mb-3">Product Description</h5>
+            <p class="text-muted">{{ product.description }}</p>
+          </div>
+
+          <div class="col-md-6">
+            <h5 class="fw-bold mb-3">Customer Reviews</h5>
+
+            @if (product.reviews?.length > 0) {
+            @for (review of product.reviews; track review) {
+            <div class="review-box mb-3">
+              <strong>{{ review.reviewerName }}</strong>
+              <div class="text-warning small">{{ review.rating }}★</div>
+              <p class="small mb-1">{{ review.comment }}</p>
+              <em class="text-muted small">{{ review.date }}</em>
+            </div>
+            }
+            } @else {
+            <p class="text-muted">No reviews yet.</p>
             }
           </div>
-          }
         </div>
-        <div class="col-lg-6">
-          <h2 class="page-title mb-2">{{ product.title }}</h2>
-          <div class="mb-3">
-            <i class="bi bi-star-fill text-warning"></i>
-            <span class="text-muted ms-2">({{ product.rating }})</span>
-          </div>
-          <div class="mb-3">
-            <span class="price">{{ product.price |currency}}</span>
-            @if (product.discountPercentage) {
-            <span class="old-price ms-2">
-              {{ product.price + (product.price * product.discountPercentage / 100) | currency}}
-            </span>
-            }
-          </div>
-          <span class="badge bg-success mb-3">{{ product.brand }}</span>
-          <p class="mb-4 text-muted">{{ product.description }}</p>
-          <div class="d-flex gap-3 flex-wrap mb-4">
-            @if (!product.added) {
-          <button class="btn btn-primary w-100" (click)="addToCart(product)">Add to Cart</button>
-          } @else {
-          <button class="btn btn-success w-100" disabled>Already Added</button>
-          }
-          </div>
-          <div class="row g-3 mt-4">
-            <div class="col-6 col-md-4">
-              <div class="feature text-center">
-                <i class="bi bi-box fs-4 text-dark fw-bold"></i>
-                <p class="mb-0 mt-1">{{ product.category }}</p>
-              </div>
-            </div>
-            <div class="col-6 col-md-4">
-              <div class="feature text-center">
-                <i class="bi bi-percent fs-4 text-primary fw-bold"></i>
-                <p class="mb-0 mt-1 fw-semibold">{{ product.discountPercentage }}% off</p>
-              </div>
-            </div>
-            <div class="col-6 col-md-4">
-              <div class="feature text-center">
-                <i class="bi bi-bootstrap-reboot fs-4 text-primary fw-bold"></i>
-                <p class="mb-0 mt-1">{{ product.returnPolicy }} </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-1 g-5">
-        <div class="col-md-6">
-          <h5 class="fw-bold mb-3">Product Description</h5>
-          <p class="text-muted">{{ product.description }}</p>
-        </div>
-        <div class="col-md-6">
-          <h5 class="fw-bold mb-3">Customer Reviews</h5>
-          @if (product.reviews?.length > 0) {
-          @for (review of product.reviews; track review) {
-          <div class="review-box mb-3">
-            <strong>{{ review.reviewerName }}</strong><br>
-            <span class="text-warning small">{{ review.rating }}★</span>
-            <p class="small mb-0">{{ review.comment }}</p><br>
-            <p class="small mb-0"><em>{{ review.date }}</em></p>
-          </div>
-          }
-          } @else {
-          <p class="text-muted">No reviews yet.</p>
-          }
-        </div>
+
       </div>
     </div>
     }
   </div>
 </section>
+
 
 
 <app-footer></app-footer>
