@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { Navbar } from "../navbar/navbar";
 import { Footer } from "../footer/footer";
 import { LoginPage } from '../service/login-page';
