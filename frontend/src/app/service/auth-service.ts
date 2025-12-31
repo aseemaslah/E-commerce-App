@@ -8,8 +8,8 @@ export class AuthService {
 
   private loggedIn = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   isLoggedIn$ = this.loggedIn.asObservable();
- 
-  setLogin(token: string) {      
+
+  setLogin(token: string) {
     localStorage.setItem('token', token);
     this.loggedIn.next(true);
   }

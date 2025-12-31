@@ -6,7 +6,8 @@ const billingSchema = new mongoose.Schema({
     pincode: { type: String, required: true },
     houseNo: { type: String, required: true },
     landmark: { type: String , required: true },
-    phone: { type: String, required: true }
+    phone: { type: String, required: true },
+    userId: { type: String, required: true }
 
 });
 

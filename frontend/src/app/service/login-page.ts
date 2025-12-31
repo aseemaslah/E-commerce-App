@@ -9,8 +9,7 @@ export class LoginPage {
   private http = inject(HttpClient);
 
 
-  Login(data: any)
-  {
+  Login(data: any) {
     return this.http.post('https://dummyjson.com/user/login', {
       username: data.username,      // map form email → username for dummyjson
       password: data.password,
@@ -18,7 +17,7 @@ export class LoginPage {
     });
   }
 
-  UserDetails(){
+  UserDetails() {
     return this.http.get('https://dummyjson.com/user/1');
   }
 }

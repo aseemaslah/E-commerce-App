@@ -92,7 +92,7 @@ export class Categorypage implements OnInit {
     });
   }
 
-  
+
   goToProduct(product: any): void {
     this.router.navigate(['/product', product.productId]);
     console.log("success")

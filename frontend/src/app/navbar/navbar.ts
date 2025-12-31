@@ -42,7 +42,7 @@ export class Navbar {
       this.cdr.markForCheck();
     });
     this.getCart();
-    
+
   }
 
   getCart(): void {

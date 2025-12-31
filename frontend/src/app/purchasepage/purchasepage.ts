@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { PurchaseService } from '../service/purchase-service';
 import { Navbar } from "../navbar/navbar";
 import { Footer } from "../footer/footer";
+import { Orderdetails } from '../service/orderdetails';
 
 @Component({
   selector: 'app-purchasepage',
@@ -22,6 +23,7 @@ export class Purchasepage {
   private form = inject(FormBuilder);
   private purhcaseService = inject(PurchaseService);
   private router = inject(Router);
+  private orderService = inject(Orderdetails);
 
   ngOnInit(): void {
     this.billingForm = this.form.group({
@@ -53,7 +55,7 @@ export class Purchasepage {
     return this.cart.reduce((total, product) => total + ((product.price * product.quantity)), 0);
   }
 
-    onSubmit() {
+  onSubmit() {
     // Check if form is valid
     if (this.billingForm.valid) {
       // Prepare order data
@@ -82,6 +84,15 @@ export class Purchasepage {
           console.error('Failed to save order:', err);
         }
       });
+      this.orderService.addOrder(orderData).subscribe({
+        next: (res) => {
+          console.log('Order added successfully:', res);
+        },
+        error: (err) => {
+          console.error('Failed to add order:', err);
+        }
+      });
+
 
       // Clear cart after successful order
       this.cartpageService.clearCart('user123').subscribe({
@@ -93,11 +104,11 @@ export class Purchasepage {
       Object.keys(this.billingForm.controls).forEach(key => {
         this.billingForm.get(key)?.markAsTouched();
       });
-      
+
       alert('Please fill all required fields correctly');
     }
   }
-    generateOrderId(): string {
+  generateOrderId(): string {
     return 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
   }
 }

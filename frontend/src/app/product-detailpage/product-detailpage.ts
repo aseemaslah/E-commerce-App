@@ -38,7 +38,7 @@ export class ProductDetailpage {
       }
       this.cdr.markForCheck();
     });
-    
+
     this.cartpageService.getCart("user123").subscribe();
   }
 

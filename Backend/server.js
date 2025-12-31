@@ -14,7 +14,7 @@ app.use(express.json());
 
 mongoose.connect('mongodb://127.0.0.1:27017/Ecommerce');
 
-mongoose.connection.once('open',()=>console.log('MongoDB connected'));
+mongoose.connection.once('open',()=>console.log('MongoDB connected Successfully'));
 
 app.use('/products', productRoute);
 app.use('/users' , userRoute);
